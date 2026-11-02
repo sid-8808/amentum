@@ -269,9 +269,29 @@ img{display:block;max-width:100%}
 .settings-label p{font-size:11px;color:var(--dim);margin-top:2px}
 
 @media(max-width:960px){
-  .sidebar{display:none}
+  /* Sidebar becomes a horizontal scrollable tab bar */
+  .admin-body{flex-direction:column}
+  .sidebar{width:100%;flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:8px;border-right:none;border-bottom:1px solid var(--border);flex-shrink:0;scrollbar-width:none}
+  .sidebar::-webkit-scrollbar{display:none}
+  .sb-section{display:flex;padding:0;margin:0;gap:4px}
+  .sb-label{display:none}
+  .sb-item{width:auto;white-space:nowrap;margin:0 2px 0 0;padding:8px 12px}
+  .main{padding:20px 16px}
+  .admin-top{padding:0 16px}
+  .at-badge,.at-brand span{display:none}
+  .page-hd h1{font-size:22px}
+  .card-body{overflow-x:auto}
+  .tbl{min-width:560px}
   .stat-grid{grid-template-columns:1fr 1fr}
   .form-grid{grid-template-columns:1fr}
   .form-grid-3{grid-template-columns:1fr}
   .ath-grid-admin{grid-template-columns:1fr 1fr}
+  #panel-dashboard>div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+  .blog-item{flex-wrap:wrap}
+  .blog-item-actions{margin-left:0;width:100%}
+  .login-box{width:calc(100% - 32px);padding:32px 24px}
+  .search-inp{width:100%}
+}
+@media(max-width:540px){
+  .ath-grid-admin{grid-template-columns:1fr}
 }

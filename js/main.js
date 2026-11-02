@@ -784,13 +784,10 @@ function cmsRenderShopProducts(){
   }
 
   // Update PRODUCT_VARIANTS in checkout
-  if(window.PRODUCT_VARIANTS){
-    active.forEach(p => {
-      const varMap = {};
-      p.variants.forEach(v => { varMap[p.id] = p.variants.map(vv=>({label:vv.label,price:vv.price})); });
-      PRODUCT_VARIANTS[p.id] = p.variants.map(v=>({label:v.label, price:v.price}));
-    });
-  }
+  // PRODUCT_VARIANTS is a top-level const (not on window) — reference it directly
+  active.forEach(p => {
+    PRODUCT_VARIANTS[p.id] = p.variants.map(v=>({label:v.label, price:v.price}));
+  });
 }
 
 function buildProductCard(p){
@@ -985,11 +982,11 @@ function cmsRenderArenaLeaderboard(){
 /* ── 9. SYNC COUPONS from admin to checkout ── */
 function cmsSyncCoupons(){
   const adminCoupons = CMS.get('site_coupons', null);
-  if(!adminCoupons || typeof window.COUPONS === 'undefined') return;
-  // Clear and rebuild the COUPONS object used by applyCoupon()
-  Object.keys(window.COUPONS).forEach(k => delete window.COUPONS[k]);
+  if(!adminCoupons) return;
+  // COUPONS is a top-level const (not on window) — mutate it directly
+  Object.keys(COUPONS).forEach(k => delete COUPONS[k]);
   adminCoupons.filter(c=>c.active).forEach(c=>{
-    window.COUPONS[c.code] = {
+    COUPONS[c.code] = {
       type: c.type,
       value: c.value,
       label: c.type==='percent' ? `${c.value}% off` : `₹${c.value} off`

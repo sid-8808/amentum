@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script>
+// Relative asset paths need a trailing slash: /admin -> /admin/
+if(location.protocol!=='file:' && !location.pathname.endsWith('/') && !/\.html?$/.test(location.pathname)){
+  location.replace(location.pathname+'/'+location.search+location.hash);
+}
+</script>
 <title>Amentum Admin Panel</title>
 <link rel="icon" type="image/png" href="../images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -115,7 +121,7 @@
       <div class="panel active" id="panel-dashboard">
         <div class="page-hd">
           <div><h1>Dashboard</h1><p>Welcome back, Admin — here's your store overview.</p></div>
-          <button class="btn btn-red" onclick="nav('products',document.querySelector('.sb-item:nth-child(1)'))">+ Add Product</button>
+          <button class="btn btn-red" onclick="nav('products',document.querySelectorAll('.sb-item')[1]);openProductModal()">+ Add Product</button>
         </div>
         <div class="stat-grid">
           <div class="stat-card"><div class="sc-label">Products</div><div class="sc-value" id="d-prod">9</div><div class="sc-sub">In store</div></div>
