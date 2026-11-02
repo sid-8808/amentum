@@ -89,6 +89,10 @@ document.addEventListener('click',e=>{
 function updatePrice(productId, price){
   const el=document.getElementById('pp-'+productId);
   if(el)el.textContent='₹'+parseInt(price).toLocaleString('en-IN');
+  // swap the card photo when the chosen weight has its own image
+  const sel=document.getElementById('vs-'+productId);
+  const opt=sel&&sel.selectedOptions[0];
+  if(opt&&opt.dataset.img){const img=sel.closest('.prod-card').querySelector('.prod-img');if(img)img.src=opt.dataset.img;}
 }
 function getPrice(productId){
   const sel=document.getElementById('vs-'+productId);
@@ -798,7 +802,7 @@ function buildProductCard(p){
     ? `<div class="variant-select-wrap">
         <span class="variant-label">Select Weight / Range</span>
         <select class="variant-select" id="vs-${p.id}" onchange="updatePrice('${p.id}',this.value)">
-          ${p.variants.map(v=>`<option value="${v.price}">${v.label}</option>`).join('')}
+          ${p.variants.map(v=>`<option value="${v.price}"${v.img?` data-img="${v.img}"`:''}>${v.label}</option>`).join('')}
         </select>
        </div>`
     : `<div style="font-size:12px;color:var(--dim);margin-bottom:14px">${p.variants?.[0]?.label||''}</div>`;
