@@ -5,6 +5,5 @@
       "maxDuration": 60,
       "includeFiles": "node_modules/pdfjs-dist/legacy/build/**"
     }
-  },
-  "buildCommand": "node scripts/build-pages.mjs"
+  }
 }

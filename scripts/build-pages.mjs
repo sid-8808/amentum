@@ -3,8 +3,9 @@
 // plus /sitemap.xml and /robots.txt.
 //
 // Source of truth is index.html (edit that; never edit the generated folders).
-// Runs on every Vercel deploy (vercel.json buildCommand) and can be run locally:
+// Run it after every change to index.html, css or js, and commit the output:
 //   node scripts/build-pages.mjs
+// (Vercel serves the committed files as-is; there is no build step.)
 // Set SITE_URL when the site moves to its final domain, e.g. https://www.amentums.com
 import fs from 'node:fs';
 import path from 'node:path';
