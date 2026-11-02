@@ -41,7 +41,7 @@ const LS = {
 /* ── DEFAULT DATA ── */
 const DEFAULT_PRODUCTS = [
   {id:'nalwa',name:'Amentum Blue Green - The Nalwa',code:'AM-BLGR',cat:'competition',level:'Pro / Elite',flex:'Low',wacert:true,
-   img:'https://static.wixstatic.com/media/a4300d_584ea8d99d8b4d4191e793388e4c82ba~mv2.jpg/v1/fill/w_480,h_480,al_c,q_80/a4300d_584ea8d99d8b4d4191e793388e4c82ba~mv2.jpg',
+   img:'../images/amentum-nalwa.jpg',
    imgbg:'#dff4f6',desc:'Blue-Green · World Athletics Certified. Named after legendary warrior Haqiqat Rai Nalwa.',
    active:true,variants:[{label:'700g / 80m — ₹18,000',price:18000},{label:'800g / 90m — ₹26,000',price:26000}]},
   {id:'chhatrapati',name:'Amentum Purple - The Chhatrapati',code:'AM-PUO',cat:'competition',level:'Intermediate / Pro',flex:'Low',wacert:false,
