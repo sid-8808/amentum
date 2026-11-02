@@ -52,6 +52,10 @@ export function findLatestRanklistUrl(homeHtml) {
 
 /** PDF bytes -> array of text lines in reading order (needs pdfjs-dist). */
 export async function pdfLines(bytes) {
+  // Load the worker module ourselves: it registers globalThis.pdfjsWorker, so pdf.js
+  // runs in-process instead of import()-ing the worker file at run time (which Vercel's
+  // bundler does not see, and so does not ship).
+  await import('pdfjs-dist/legacy/build/pdf.worker.mjs');
   const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
   const doc = await pdfjs.getDocument({ data: new Uint8Array(bytes), isEvalSupported: false, useSystemFonts: false }).promise;
   const lines = [];
@@ -111,7 +115,11 @@ const strip = s => entities(s.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').tri
 /** Junior results HTML -> top 5 per javelin age group, taken from each event's Final. */
 export function parseJunior(html, top = 5) {
   const title = strip((html.match(/<title>([^<]*)<\/title>/) || ['', ''])[1]).replace(/\s*[«|].*$/, '');
-  const dates = (strip(html).match(/\b(\d{1,2}\s*[–-]\s*\d{1,2}\s+[A-Z][a-z]+\s+\d{4})\b/) || [])[1] || null;
+  // the page also carries menu links with other dates (e.g. "1-10 Oct 2021"); take the first
+  // date range in the championship's own year
+  const year = (title.match(/\b(20\d{2})\b/) || [])[1];
+  const dates = [...strip(html).matchAll(/\b(\d{1,2}\s*[–-]\s*\d{1,2}\s+[A-Z][a-z]+\s+(\d{4}))/g)]
+    .find(m => !year || m[2] === year)?.[1] || null;
   const want = { 'men:u20': 'u20Boys', 'women:u20': 'u20Girls', 'men:u18': 'u18Boys', 'women:u18': 'u18Girls' };
   const out = { event: title || null, dates };
   for (const sec of html.matchAll(/<section class="afi-event"[^>]*data-group="(men|women)"[^>]*data-age="(u\d+)"[^>]*>([\s\S]*?)<\/section>/g)) {
