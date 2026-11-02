@@ -1,0 +1,9 @@
+{
+  "name": "amentum-sports",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "pdfjs-dist": "4.10.38"
+  }
+}

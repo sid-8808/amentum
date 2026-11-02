@@ -748,7 +748,7 @@
     </div>
     <div class="arena-tabs">
       <button class="atab on" onclick="aTab('lb',this)">Leaderboard</button>
-      <button class="atab" onclick="aTab('afi',this)">AFI Rankings</button>
+      <button class="atab" onclick="aTab('afi',this);loadRankings(false)">AFI Rankings</button>
       <button class="atab" onclick="aTab('enroll',this)">Enroll Now</button>
       <button class="atab" onclick="aTab('profiles',this)">Athlete Profiles</button>
     </div>
@@ -772,11 +772,14 @@
 
     <div id="tab-afi" class="tab-pane">
       <div style="margin-bottom:28px">
-        <h2 class="h3" style="margin-bottom:8px">AFI National Rankings · Javelin</h2>
-        <p style="font-size:13px;color:var(--dim);line-height:1.6;max-width:720px">Top 5 by best mark in the 2025 season, from the Athletics Federation of India's official ranking list (as of 14 Dec 2025). AFI publishes senior lists only; these include athletes of all ages.</p>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:8px">
+          <h2 class="h3" style="margin:0">AFI National Rankings · Javelin</h2>
+          <div class="rk-bar"><span id="rk-status" class="rk-status">Lists as published by AFI</span><button type="button" id="rk-refresh" class="rk-refresh" onclick="loadRankings(true)">↻ Refresh rankings</button></div>
+        </div>
+        <p id="rk-senior-note" style="font-size:13px;color:var(--dim);line-height:1.6;max-width:720px">Top 5 by best mark in the 2025 season, from the Athletics Federation of India's official ranking list (as of 14 Dec 2025). AFI publishes senior lists only; these include athletes of all ages.</p>
       </div>
       <div class="rk-grid">
-        <div class="rk-col">
+        <div class="rk-col" data-rk="men">
           <h3 class="rk-title">Men · 800g</h3>
           <div class="lb-row head rk-row"><div class="label-xs">#</div><div class="label-xs">Athlete</div><div class="label-xs">Best</div></div>
           <div class="lb-row gold rk-row"><div class="lb-rank">1</div><div class="lb-ath"><div class="lb-av">NC</div><div><div class="lb-name">Neeraj Chopra</div><div class="lb-loc">Haryana · Diamond League, Doha · 16 May 2025</div></div></div><div class="lb-pb">90.23<small>m</small> <span class="rk-nr">NR</span></div></div>
@@ -785,7 +788,7 @@
           <div class="lb-row rk-row"><div class="lb-rank">4</div><div class="lb-ath"><div class="lb-av">YS</div><div><div class="lb-name">Yashvir Singh</div><div class="lb-loc">Rajasthan · Asian Championships, Gumi · 31 May 2025</div></div></div><div class="lb-pb">82.57<small>m</small></div></div>
           <div class="lb-row rk-row"><div class="lb-rank">5</div><div class="lb-ath"><div class="lb-av">SL</div><div><div class="lb-name">Shivam Lohakare</div><div class="lb-loc">Maharashtra · Indian Open 6, Pune · 12 Jul 2025</div></div></div><div class="lb-pb">80.95<small>m</small></div></div>
         </div>
-        <div class="rk-col">
+        <div class="rk-col" data-rk="women">
           <h3 class="rk-title">Women · 600g</h3>
           <div class="lb-row head rk-row"><div class="label-xs">#</div><div class="label-xs">Athlete</div><div class="label-xs">Best</div></div>
           <div class="lb-row gold rk-row"><div class="lb-rank">1</div><div class="lb-ath"><div class="lb-av">AR</div><div><div class="lb-name">Annu Rani</div><div class="lb-loc">Uttar Pradesh · Wiesław Maniak Memorial, Szczecin · 6 Aug 2025</div></div></div><div class="lb-pb">62.59<small>m</small></div></div>
@@ -797,11 +800,11 @@
       </div>
 
       <div style="margin:64px 0 28px;padding-top:40px;border-top:1px solid var(--border)">
-        <h2 class="h3" style="margin-bottom:8px">Junior &amp; Youth · National Championships 2026</h2>
-        <p style="font-size:13px;color:var(--dim);line-height:1.6;max-width:720px">Top 5 in the javelin finals at AFI's 41st National Junior Athletics Championships, Chennai, 23–27 Oct 2026. AFI does not publish a U20 or U18 season ranking, so these are the official final placings at India's national age-group championship.</p>
+        <h2 class="h3" id="rk-junior-title" style="margin-bottom:8px">Junior &amp; Youth · National Championships 2026</h2>
+        <p id="rk-junior-note" style="font-size:13px;color:var(--dim);line-height:1.6;max-width:720px">Top 5 in the javelin finals at AFI's 41st National Junior Athletics Championships, Chennai, 23–27 Oct 2026. AFI does not publish a U20 or U18 season ranking, so these are the official final placings at India's national age-group championship.</p>
       </div>
       <div class="rk-grid">
-        <div class="rk-col">
+        <div class="rk-col" data-rk="u20Boys">
           <h3 class="rk-title">U20 Boys · 800g</h3>
           <div class="lb-row head rk-row"><div class="label-xs">#</div><div class="label-xs">Athlete</div><div class="label-xs">Mark</div></div>
           <div class="lb-row gold rk-row"><div class="lb-rank">1</div><div class="lb-ath"><div class="lb-av">DT</div><div><div class="lb-name">Dharanidharan T</div><div class="lb-loc">Tamil Nadu · born 2007</div></div></div><div class="lb-pb">76.18<small>m</small></div></div>
@@ -810,7 +813,7 @@
           <div class="lb-row rk-row"><div class="lb-rank">4</div><div class="lb-ath"><div class="lb-av">CJ</div><div><div class="lb-name">Chetan Jat</div><div class="lb-loc">Rajasthan · born 2007</div></div></div><div class="lb-pb">70.75<small>m</small></div></div>
           <div class="lb-row rk-row"><div class="lb-rank">5</div><div class="lb-ath"><div class="lb-av">A</div><div><div class="lb-name">Aryan</div><div class="lb-loc">Haryana · born 2007</div></div></div><div class="lb-pb">70.21<small>m</small></div></div>
         </div>
-        <div class="rk-col">
+        <div class="rk-col" data-rk="u20Girls">
           <h3 class="rk-title">U20 Girls · 600g</h3>
           <div class="lb-row head rk-row"><div class="label-xs">#</div><div class="label-xs">Athlete</div><div class="label-xs">Mark</div></div>
           <div class="lb-row gold rk-row"><div class="lb-rank">1</div><div class="lb-ath"><div class="lb-av">P</div><div><div class="lb-name">Poonam</div><div class="lb-loc">Haryana · born 2007</div></div></div><div class="lb-pb">51.48<small>m</small></div></div>
@@ -821,7 +824,7 @@
         </div>
       </div>
       <div class="rk-grid" style="margin-top:48px">
-        <div class="rk-col">
+        <div class="rk-col" data-rk="u18Boys">
           <h3 class="rk-title">U18 Boys · 700g</h3>
           <div class="lb-row head rk-row"><div class="label-xs">#</div><div class="label-xs">Athlete</div><div class="label-xs">Mark</div></div>
           <div class="lb-row gold rk-row"><div class="lb-rank">1</div><div class="lb-ath"><div class="lb-av">KC</div><div><div class="lb-name">Krishan Chandra</div><div class="lb-loc">Madhya Pradesh · born 2009</div></div></div><div class="lb-pb">74.83<small>m</small></div></div>
@@ -830,7 +833,7 @@
           <div class="lb-row rk-row"><div class="lb-rank">4</div><div class="lb-ath"><div class="lb-av">HM</div><div><div class="lb-name">Harsh Mishra</div><div class="lb-loc">Uttar Pradesh · born 2010</div></div></div><div class="lb-pb">68.92<small>m</small></div></div>
           <div class="lb-row rk-row"><div class="lb-rank">5</div><div class="lb-ath"><div class="lb-av">AR</div><div><div class="lb-name">Ayush Raj</div><div class="lb-loc">Bihar · born 2010</div></div></div><div class="lb-pb">68.56<small>m</small></div></div>
         </div>
-        <div class="rk-col">
+        <div class="rk-col" data-rk="u18Girls">
           <h3 class="rk-title">U18 Girls · 500g</h3>
           <div class="lb-row head rk-row"><div class="label-xs">#</div><div class="label-xs">Athlete</div><div class="label-xs">Mark</div></div>
           <div class="lb-row gold rk-row"><div class="lb-rank">1</div><div class="lb-ath"><div class="lb-av">MK</div><div><div class="lb-name">Misti Karmakar</div><div class="lb-loc">West Bengal · born 2009</div></div></div><div class="lb-pb">51.41<small>m</small></div></div>
@@ -840,7 +843,7 @@
           <div class="lb-row rk-row"><div class="lb-rank">5</div><div class="lb-ath"><div class="lb-av">SB</div><div><div class="lb-name">Siya Banjara</div><div class="lb-loc">Rajasthan · born 2009</div></div></div><div class="lb-pb">44.72<small>m</small></div></div>
         </div>
       </div>
-      <p style="font-size:11px;color:var(--dim);margin-top:32px;line-height:1.7">Sources: <a href="https://indianathletics.in/wp-content/uploads/2026/04/AFIranklists_14DEC2025-1.pdf" target="_blank" rel="noopener" style="color:var(--red)">AFI National Rankings 2025 (PDF)</a> · <a href="https://indianathletics.in/afi_result/41st-national-junior-athletics-championships-2026/" target="_blank" rel="noopener" style="color:var(--red)">AFI 41st National Junior Athletics Championships 2026 results</a> · NR = National Record</p>
+      <p id="rk-sources" style="font-size:11px;color:var(--dim);margin-top:32px;line-height:1.7">Sources: <a href="https://indianathletics.in/wp-content/uploads/2026/04/AFIranklists_14DEC2025-1.pdf" target="_blank" rel="noopener" style="color:var(--red)">AFI National Rankings 2025 (PDF)</a> · <a href="https://indianathletics.in/afi_result/41st-national-junior-athletics-championships-2026/" target="_blank" rel="noopener" style="color:var(--red)">AFI 41st National Junior Athletics Championships 2026 results</a> · NR = National Record</p>
     </div>
     <div id="tab-enroll" class="tab-pane">
       <div class="enroll-wrap">

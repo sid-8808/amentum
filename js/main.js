@@ -1034,3 +1034,86 @@ window.addEventListener('storage', e => {
     };
   }
 })();
+
+/* ══════════════════════════════════════════════════════════════
+   LIVE AFI RANKINGS (Athlete Arena → AFI Rankings)
+   Reads /api/rankings (Vercel function). Each part (senior / junior)
+   falls back to the last good copy kept in this browser, and then to
+   the lists baked into the page, so the tab never goes blank.
+══════════════════════════════════════════════════════════════ */
+const RK_STORE='afi_rankings_last_good';
+let _rkLoaded=false;
+const rkEsc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rkInitials=n=>String(n).split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+const rkDate=d=>{const x=new Date(d);return isNaN(x)?d:x.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});};
+
+function rkRenderList(key,rows,junior){
+  const col=document.querySelector(`#tab-afi .rk-col[data-rk="${key}"]`);
+  if(!col||!Array.isArray(rows)||!rows.length)return;
+  col.querySelectorAll('.lb-row:not(.head)').forEach(r=>r.remove());
+  rows.forEach((a,i)=>{
+    const meta=junior
+      ? `${rkEsc(a.state)} · born ${rkEsc(a.born)}`
+      : a.news
+        ? `${rkEsc(a.state)} · News report · ${rkEsc(rkDate(a.date))}`
+        : `${rkEsc(a.state)} · ${rkEsc(a.comp)} · ${rkEsc(a.date)}`;
+    const tag = a.nr ? ' <span class="rk-nr">NR</span>'
+      : a.news ? ` <a class="rk-news" href="${rkEsc(a.news.url)}" target="_blank" rel="noopener" title="${rkEsc(a.news.title)}">NEWS</a>` : '';
+    col.insertAdjacentHTML('beforeend',
+      `<div class="lb-row${i<3?' gold':''} rk-row"><div class="lb-rank">${i+1}</div><div class="lb-ath"><div class="lb-av">${rkEsc(rkInitials(a.name))}</div><div><div class="lb-name">${rkEsc(a.name)}</div><div class="lb-loc">${meta}</div></div></div><div class="lb-pb">${Number(a.mark).toFixed(2)}<small>m</small>${tag}</div></div>`);
+  });
+}
+
+function rkRender(data){
+  const links=[];
+  if(data.senior){
+    const s=data.senior;
+    ['men','women'].forEach(k=>rkRenderList(k,s[k],false));
+    const note=document.getElementById('rk-senior-note');
+    if(note)note.textContent=`Top 5 by best mark from the Athletics Federation of India's official ranking list${s.source.asOf?` (as of ${rkDate(s.source.asOf)})`:''}, plus newer marks reported in the news where an article names the athlete and the distance (tagged NEWS). AFI publishes senior lists only; these include athletes of all ages.`;
+    links.push(`<a href="${rkEsc(s.source.url)}" target="_blank" rel="noopener" style="color:var(--red)">${rkEsc(s.source.name)} (PDF)</a>`);
+  }
+  if(data.junior){
+    const j=data.junior;
+    ['u20Boys','u20Girls','u18Boys','u18Girls'].forEach(k=>rkRenderList(k,j[k],true));
+    const yr=(String(j.source.name).match(/\d{4}/)||[''])[0];
+    const h=document.getElementById('rk-junior-title'); if(h)h.textContent=`Junior & Youth · National Championships ${yr}`;
+    const n=document.getElementById('rk-junior-note');
+    if(n)n.textContent=`Top 5 in the javelin finals at AFI's ${j.source.name}${j.source.dates?`, ${j.source.dates}`:''}. AFI does not publish a U20 or U18 season ranking, so these are the official final placings at India's national age-group championship.`;
+    links.push(`<a href="${rkEsc(j.source.url)}" target="_blank" rel="noopener" style="color:var(--red)">AFI ${rkEsc(j.source.name)} results</a>`);
+  }
+  const src=document.getElementById('rk-sources');
+  if(src&&links.length)src.innerHTML=`Sources: ${links.join(' · ')} · NR = National Record · NEWS = mark from a news report, not yet in AFI's official list`;
+}
+
+function rkStatus(text,warn){const el=document.getElementById('rk-status');if(el){el.textContent=text;el.classList.toggle('warn',!!warn);}}
+
+async function loadRankings(force){
+  if(_rkLoaded&&!force)return;
+  _rkLoaded=true;
+  const btn=document.getElementById('rk-refresh');
+  if(btn){btn.disabled=true;btn.textContent='Refreshing…';}
+  let saved=null; try{saved=JSON.parse(localStorage.getItem(RK_STORE)||'null');}catch(e){}
+  try{
+    const r=await fetch('/api/rankings'+(force?'?refresh=1':''),{cache:force?'no-store':'default'});
+    const data=await r.json().catch(()=>null);
+    if(!r.ok||!data||!data.ok)throw new Error('unavailable');
+    // fill any part that failed this time from the last good copy
+    const merged={...data,senior:data.senior||(saved&&saved.senior)||null,junior:data.junior||(saved&&saved.junior)||null};
+    rkRender(merged);
+    try{localStorage.setItem(RK_STORE,JSON.stringify({senior:merged.senior,junior:merged.junior,fetchedAt:data.fetchedAt}));}catch(e){}
+    const partial=!data.senior||!data.junior;
+    rkStatus(`Updated ${new Date(data.fetchedAt).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}${partial?' · some lists from last update':''}${data.news&&data.news.applied&&data.news.applied.length?` · ${data.news.applied.length} news update${data.news.applied.length>1?'s':''}`:''}`,partial);
+    if(force&&typeof toast==='function')toast('Rankings refreshed from AFI ✓');
+  }catch(e){
+    if(saved&&(saved.senior||saved.junior)){
+      rkRender(saved);
+      rkStatus(`Live update unavailable · showing lists from ${rkDate(saved.fetchedAt)}`,true);
+    }else{
+      rkStatus('Live update unavailable · showing lists as last published on this page',true);
+    }
+    if(force&&typeof toast==='function')toast('Could not reach AFI right now. Showing the last saved rankings.');
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent='↻ Refresh rankings';}
+  }
+}
