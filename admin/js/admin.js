@@ -52,7 +52,7 @@ const DEFAULT_PRODUCTS = [
    active:true,variants:[{label:'600g / 50m — ₹13,000',price:13000},{label:'700g / 70m — ₹14,300',price:14300},{label:'800g / 70m — ₹14,300',price:14300}]},
   {id:'black-panther',name:'Black Panther',code:'AM-BLA',cat:'training',level:'Intermediate',flex:'Medium',wavert:false,
    img:'../images/Black_Panther.jpg',imgbg:'#f0f0f0',desc:'High-impact alloy for daily training in all conditions.',
-   active:true,variants:[{label:'600g — ₹8,000',price:8000},{label:'700g — ₹8,200',price:8200},{label:'800g — ₹8,500',price:8500}]},
+   active:true,variants:[{label:'600g — ₹8,400',price:8400},{label:'700g — ₹8,640',price:8640},{label:'800g — ₹9,000',price:9000}]},
   {id:'purple-white',name:'Purple White',code:'AM-PRWH',cat:'training',level:'Beginner / Intermediate',flex:'Medium',wavert:false,
    img:'../images/Purple_White_2.png',imgbg:'#f0edff',desc:'Two-tone purple and white · 500g · 50m range.',
    active:true,variants:[{label:'500g / 50m — ₹7,800',price:7800}]},
