@@ -44,6 +44,9 @@ const DEFAULT_PRODUCTS = [
    img:'https://static.wixstatic.com/media/a4300d_584ea8d99d8b4d4191e793388e4c82ba~mv2.jpg/v1/fill/w_480,h_480,al_c,q_80/a4300d_584ea8d99d8b4d4191e793388e4c82ba~mv2.jpg',
    imgbg:'#dff4f6',desc:'Blue-Green · World Athletics Certified. Named after legendary warrior Haqiqat Rai Nalwa.',
    active:true,variants:[{label:'700g / 80m — ₹18,000',price:18000},{label:'800g / 90m — ₹26,000',price:26000}]},
+  {id:'chhatrapati',name:'Amentum Purple - The Chhatrapati',code:'AM-PUO',cat:'competition',level:'Intermediate / Pro',flex:'Low',wacert:false,
+   img:'../images/Purple_White.png',imgbg:'#f0edff',desc:'Purple · Named after Chhatrapati Shivaji Maharaj.',
+   active:true,variants:[{label:'600g / 60m — ₹16,250',price:16250},{label:'800g / 80m — ₹18,200',price:18200}]},
   {id:'olympic-gold',name:'Amentum Olympic Gold',code:'AM-BLY',cat:'competition',level:'Intermediate',flex:'Medium / Low',wavert:false,
    img:'../images/Olympic_gold.png',imgbg:'#fef9e8',desc:'Gold finish · Competition spec for women and sub-elite athletes.',
    active:true,variants:[{label:'600g / 55m — ₹13,000',price:13000},{label:'700g / 70m — ₹14,300',price:14300},{label:'800g / 70m — ₹14,300',price:14300}]},
@@ -88,7 +91,7 @@ const DEFAULT_ARTICLES = [
 
 const DEFAULT_ATHLETES = [
   {id:'ath1',name:'Arjun Rathore',ig:'@arjunrathore_throws',cat:'Open',state:'Haryana',pb:84.3,age:22,gear:'The Nalwa',status:'sponsored',verified:true},
-  {id:'ath2',name:'Kavya Menon',ig:'@kavya_javelin',cat:'Women',state:'Kerala',pb:61.8,age:20,gear:'Amentum Olympic Gold',status:'sponsored',verified:true},
+  {id:'ath2',name:'Kavya Menon',ig:'@kavya_javelin',cat:'Women',state:'Kerala',pb:61.8,age:20,gear:'The Chhatrapati',status:'sponsored',verified:true},
   {id:'ath3',name:'Rohit Sharma',ig:'@rohit_spear',cat:'Open',state:'Punjab',pb:81.5,age:24,gear:'Black Panther',status:'active',verified:true},
   {id:'ath4',name:'Priya Mukherjee',ig:'@priyathrows',cat:'Women',state:'West Bengal',pb:58.2,age:19,gear:'Olympic Gold',status:'active',verified:false},
   {id:'ath5',name:'Vikram Kulkarni',ig:'@vk_athletics',cat:'Open',state:'Maharashtra',pb:79.1,age:21,gear:'Black Panther',status:'active',verified:true},
