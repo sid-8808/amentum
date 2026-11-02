@@ -45,7 +45,7 @@ const DEFAULT_PRODUCTS = [
    imgbg:'#dff4f6',desc:'Blue-Green · World Athletics Certified. Named after legendary warrior Haqiqat Rai Nalwa.',
    active:true,variants:[{label:'700g / 80m — ₹18,000',price:18000},{label:'800g / 90m — ₹26,000',price:26000}]},
   {id:'chhatrapati',name:'Amentum Purple - The Chhatrapati',code:'AM-PUO',cat:'competition',level:'Intermediate / Pro',flex:'Low',wacert:false,
-   img:'../images/Purple_White.png',imgbg:'#f0edff',desc:'Purple · Named after Chhatrapati Shivaji Maharaj.',
+   img:'../images/amentum-chhatrapati.jpg',imgbg:'#f7f7f9',desc:'Purple · Named after Chhatrapati Shivaji Maharaj.',
    active:true,variants:[{label:'600g / 60m — ₹16,250',price:16250},{label:'800g / 80m — ₹18,200',price:18200}]},
   {id:'olympic-gold',name:'Amentum Olympic Gold',code:'AM-BLY',cat:'competition',level:'Intermediate',flex:'Medium / Low',wavert:false,
    img:'../images/Olympic_gold.png',imgbg:'#fef9e8',desc:'Gold finish · Competition spec for women and sub-elite athletes.',
