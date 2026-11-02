@@ -109,7 +109,10 @@ export function findLatestJuniorUrl(resultsHtml) {
   return all[0] || null;
 }
 
-const entities = s => s.replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(+n)).replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&rsquo;/g, "'").replace(/&middot;/g, '·');
+const NAMED = { nbsp: ' ', amp: '&', rsquo: "'", lsquo: "'", middot: '·', ndash: '–', mdash: '—', laquo: '«', raquo: '»', quot: '"' };
+const entities = s => s.replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+  .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(+d))
+  .replace(/&([a-z]+);/gi, (m, k) => NAMED[k.toLowerCase()] ?? m);
 const strip = s => entities(s.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
 
 /** Junior results HTML -> top 5 per javelin age group, taken from each event's Final. */
