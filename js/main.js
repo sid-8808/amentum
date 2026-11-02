@@ -75,7 +75,7 @@ document.addEventListener('click',e=>{
     if(c.classList.contains('shop-sec-hd') || c.classList.contains('inst-block')){
       c.style.display=''; return;
     }
-    if(filter==='all'||c.dataset.cat===filter){c.style.display='';}
+    if(filter==='all'||c.dataset.cat.split(' ').includes(filter)){c.style.display='';}  // a card can sit in several categories
     else{c.style.display='none';}
   });
   // When filtering, show the international section header only if international is in scope
