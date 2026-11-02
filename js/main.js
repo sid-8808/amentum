@@ -1117,3 +1117,22 @@ async function loadRankings(force){
     if(btn){btn.disabled=false;btn.textContent='↻ Refresh rankings';}
   }
 }
+
+/* Refresh for the Arena's own lists (Leaderboard, Athlete Profiles).
+   These come from the admin panel (Athletes / Leaderboard), so a refresh
+   re-reads the latest saved athlete data; AFI Rankings has its own button. */
+function refreshArenaList(kind,btn){
+  if(btn){btn.disabled=true;btn.textContent='Refreshing…';}
+  const fromAdmin=!!localStorage.getItem('site_athletes');
+  try{
+    if(kind==='leaderboard')cmsRenderArenaLeaderboard();
+    if(kind==='profiles')cmsRenderArenaProfiles();
+  }finally{
+    setTimeout(()=>{
+      if(btn){btn.disabled=false;btn.textContent=kind==='leaderboard'?'↻ Refresh leaderboard':'↻ Refresh profiles';}
+      if(typeof toast==='function')toast(fromAdmin
+        ?(kind==='leaderboard'?'Leaderboard updated from latest athlete data ✓':'Profiles updated from latest athlete data ✓')
+        :'Already showing the latest list');
+    },300);
+  }
+}

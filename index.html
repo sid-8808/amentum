@@ -751,12 +751,11 @@
       <button class="atab" onclick="aTab('afi',this);loadRankings(false)">AFI Rankings</button>
       <button class="atab" onclick="aTab('enroll',this)">Enroll Now</button>
       <button class="atab" onclick="aTab('profiles',this)">Athlete Profiles</button>
-      <button type="button" class="rk-refresh arena-rk-btn" onclick="aTab('afi',document.querySelector('.atab[onclick*=&quot;afi&quot;]'));loadRankings(true)">↻ Refresh AFI rankings</button>
     </div>
   </div>
   <div class="arena-body">
     <div id="tab-lb" class="tab-pane on">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:14px"><h2 class="h3">Amentum Leaderboard</h2><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="fpill on" style="font-size:11px;padding:5px 14px">Open</button><button class="fpill" style="font-size:11px;padding:5px 14px">U-20</button><button class="fpill" style="font-size:11px;padding:5px 14px">U-18</button><button class="fpill" style="font-size:11px;padding:5px 14px">Women</button></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:14px"><h2 class="h3">Amentum Leaderboard</h2><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="fpill on" style="font-size:11px;padding:5px 14px">Open</button><button class="fpill" style="font-size:11px;padding:5px 14px">U-20</button><button class="fpill" style="font-size:11px;padding:5px 14px">U-18</button><button class="fpill" style="font-size:11px;padding:5px 14px">Women</button><button type="button" class="rk-refresh" onclick="refreshArenaList('leaderboard',this)">↻ Refresh leaderboard</button></div></div>
       <div id="lb-tbody"><div class="lb-row head"><div class="label-xs">#</div><div class="label-xs">Athlete</div><div class="label-xs">PB</div><div class="label-xs lb-badge-col">Status</div></div>
       <div class="lb-row gold"><div class="lb-rank">1</div><div class="lb-ath"><div class="lb-av">AR</div><div><div class="lb-name">Arjun Rathore</div><div class="lb-loc">Haryana · 22</div></div></div><div class="lb-pb">84.3<small>m</small></div><div class="lb-badge-col"><span class="badge s">Sponsored</span></div></div>
       <div class="lb-row gold"><div class="lb-rank">2</div><div class="lb-ath"><div class="lb-av">KM</div><div><div class="lb-name">Kavya Menon</div><div class="lb-loc">Kerala · 20</div></div></div><div class="lb-pb">61.8<small>m</small></div><div class="lb-badge-col"><span class="badge s">Sponsored</span></div></div>
@@ -903,7 +902,7 @@
     </div>
 
     <div id="tab-profiles" class="tab-pane">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:12px"><h2 class="h3">Enrolled Athletes</h2><div style="font-size:13px;color:var(--dim)">500+ athletes nationwide</div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:12px"><h2 class="h3">Enrolled Athletes</h2><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><div style="font-size:13px;color:var(--dim)">500+ athletes nationwide</div><button type="button" class="rk-refresh" onclick="refreshArenaList('profiles',this)">↻ Refresh profiles</button></div></div>
       <div class="ath-grid" id="arena-profiles-grid">
         <div class="ath-card"><div class="ath-av" style="background:var(--red-bg);color:var(--red)">AR</div><div class="ath-name">Arjun Rathore</div><div class="ath-role">@arjunrathore_throws</div><div class="ath-loc">Haryana · Open</div><div class="ath-stats"><div><div class="ath-sv" style="color:var(--red)">84.3<span style="font-size:11px;color:var(--dim)">m</span></div><div class="ath-sl">PB</div></div><div><div class="ath-sv">22</div><div class="ath-sl">Age</div></div><div><div class="ath-sv">#1</div><div class="ath-sl">Rank</div></div></div></div>
         <div class="ath-card"><div class="ath-av">KM</div><div class="ath-name">Kavya Menon</div><div class="ath-role">@kavya_javelin</div><div class="ath-loc">Kerala · Women</div><div class="ath-stats"><div><div class="ath-sv" style="color:var(--red)">61.8<span style="font-size:11px;color:var(--dim)">m</span></div><div class="ath-sl">PB</div></div><div><div class="ath-sv">20</div><div class="ath-sl">Age</div></div><div><div class="ath-sv">#2</div><div class="ath-sl">Rank</div></div></div></div>
