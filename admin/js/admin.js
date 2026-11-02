@@ -54,7 +54,7 @@ const DEFAULT_PRODUCTS = [
    img:'../images/Black_Panther.jpg',imgbg:'#f0f0f0',desc:'High-impact alloy for daily training in all conditions.',
    active:true,variants:[{label:'600g — ₹8,400',price:8400},{label:'700g — ₹8,640',price:8640},{label:'800g — ₹9,000',price:9000},{label:'900g — ₹11,000',price:11000},{label:'1000g — ₹12,500',price:12500}]},
   {id:'purple-white',name:'Amentum Shakti - Purple',code:'AM-PRWH',cat:'training',level:'Beginner / Intermediate',flex:'Medium',wavert:false,
-   img:'../images/Purple_White_2.png',imgbg:'#f0edff',desc:'Two-tone purple and white · 500g · 50m range.',
+   img:'../images/amentum-shakti-purple.jpg',imgbg:'#e9e7ee',desc:'Two-tone purple and white · 500g · 50m range.',
    active:true,variants:[{label:'500g / 50m — ₹7,800',price:7800}]},
   {id:'shakti-red',name:'Amentum Shakti - Red',code:'',cat:'training',level:'Intermediate',flex:'Medium',wavert:true,
    img:'../images/amentum-shakti-red.jpg',imgbg:'#fff0ef',desc:'Red and white · 500g · 60m range · World Athletics certified.',
