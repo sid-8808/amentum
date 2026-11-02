@@ -5,5 +5,15 @@
       "maxDuration": 60,
       "includeFiles": "node_modules/pdfjs-dist/legacy/build/**"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/:page(shop|arena|insights)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:page(shop|arena|insights)/",
+      "destination": "/index.html"
+    }
+  ]
 }

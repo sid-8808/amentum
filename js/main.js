@@ -17,17 +17,36 @@ const rObs=new IntersectionObserver(entries=>{
 function initReveal(){document.querySelectorAll('.r,.rs,.rfade').forEach(el=>{el.classList.remove('in');rObs.observe(el)});}
 
 /* ── NAVIGATION ── */
-function go(page){
+/* ── URL routing: each page has its own address (/, /shop/, /arena/, /insights/) ── */
+const PAGES=['home','shop','arena','insights'];
+const PAGE_TITLES={home:'Amentum Sports | Largest Javelin Store in Asia',shop:'Shop Javelins | Amentum Sports',arena:'Athlete Arena | Amentum Sports',insights:'Insights | Amentum Sports'};
+const pagePath=p=>p==='home'?'/':'/'+p+'/';
+function pageFromPath(path){const m=String(path).match(/^\/([a-z]+)\/?$/);return m&&PAGES.includes(m[1])?m[1]:'home';}
+
+function go(page,opts){
+  opts=opts||{};
+  if(!PAGES.includes(page))page='home';
+  if(!opts.fromHistory&&location.protocol!=='file:'&&location.pathname!==pagePath(page)){
+    history.pushState({page},'',pagePath(page));
+  }
+  if(PAGE_TITLES[page])document.title=PAGE_TITLES[page];
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
   const pg=document.getElementById('page-'+page);
   if(pg)pg.classList.add('on');
   const nl=document.getElementById('nl-'+page);
   if(nl)nl.classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+  window.scrollTo({top:0,behavior:opts.instant?'auto':'smooth'});
   setTimeout(initReveal,80);
   closeMobileNav();
 }
+// open the page named in the address bar, and follow Back/Forward
+document.addEventListener('DOMContentLoaded',()=>{
+  const page=pageFromPath(location.pathname);
+  if(location.protocol!=='file:')history.replaceState({page},'',pagePath(page)+location.search+location.hash);
+  if(page!=='home')go(page,{fromHistory:true,instant:true});
+});
+window.addEventListener('popstate',e=>go((e.state&&e.state.page)||pageFromPath(location.pathname),{fromHistory:true}));
 function toggleNav(){
   const l=document.querySelector('.nav-links');
   if(!l)return;
@@ -463,7 +482,7 @@ function initRazorpay(){
     currency:'INR',
     name:'Amentum Sports',
     description:_payProduct+(variantLabel?` (${variantLabel})`:''),
-    image:'images/amentum_logo.png',
+    image:'/images/amentum_logo.png',
     handler:function(response){
       closePayModal();
       const msg=encodeURIComponent(
@@ -1028,9 +1047,9 @@ window.addEventListener('storage', e => {
   // SPA page-view tracking on internal navigation
   const _gaGo = window.go;
   if(typeof _gaGo === 'function'){
-    window.go = function(page){
-      _gaGo(page);
-      gtag('event','page_view',{page_title:page,page_location:location.href+'#'+page});
+    window.go = function(page,opts){
+      _gaGo(page,opts);
+      gtag('event','page_view',{page_title:document.title,page_location:location.href,page_path:location.pathname});
     };
   }
 })();
