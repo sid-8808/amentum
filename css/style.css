@@ -641,3 +641,10 @@ footer{background:var(--ink);padding:80px 52px 48px}
 
 /* OTP verified badge override */
 #otp-verified-badge{background:#edfff5!important;border-color:#1a6b3a!important;color:#1a6b3a!important}
+
+/* ── AFI National Rankings tab (Arena) ── */
+.rk-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.rk-title{font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-.015em;margin-bottom:10px}
+.rk-row{grid-template-columns:44px 1fr 96px;cursor:default}
+.rk-nr{display:inline-block;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:.06em;color:#fff;background:var(--red);border-radius:4px;padding:2px 5px;vertical-align:middle;margin-left:4px}
+@media(max-width:960px){.rk-grid{grid-template-columns:1fr;gap:36px}.rk-row .lb-loc{white-space:normal}}

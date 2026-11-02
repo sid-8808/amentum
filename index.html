@@ -748,13 +748,14 @@
     </div>
     <div class="arena-tabs">
       <button class="atab on" onclick="aTab('lb',this)">Leaderboard</button>
+      <button class="atab" onclick="aTab('afi',this)">AFI Rankings</button>
       <button class="atab" onclick="aTab('enroll',this)">Enroll Now</button>
       <button class="atab" onclick="aTab('profiles',this)">Athlete Profiles</button>
     </div>
   </div>
   <div class="arena-body">
     <div id="tab-lb" class="tab-pane on">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:14px"><h2 class="h3">National Rankings</h2><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="fpill on" style="font-size:11px;padding:5px 14px">Open</button><button class="fpill" style="font-size:11px;padding:5px 14px">U-20</button><button class="fpill" style="font-size:11px;padding:5px 14px">U-18</button><button class="fpill" style="font-size:11px;padding:5px 14px">Women</button></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:14px"><h2 class="h3">Amentum Leaderboard</h2><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="fpill on" style="font-size:11px;padding:5px 14px">Open</button><button class="fpill" style="font-size:11px;padding:5px 14px">U-20</button><button class="fpill" style="font-size:11px;padding:5px 14px">U-18</button><button class="fpill" style="font-size:11px;padding:5px 14px">Women</button></div></div>
       <div id="lb-tbody"><div class="lb-row head"><div class="label-xs">#</div><div class="label-xs">Athlete</div><div class="label-xs">PB</div><div class="label-xs lb-badge-col">Status</div></div>
       <div class="lb-row gold"><div class="lb-rank">1</div><div class="lb-ath"><div class="lb-av">AR</div><div><div class="lb-name">Arjun Rathore</div><div class="lb-loc">Haryana · 22</div></div></div><div class="lb-pb">84.3<small>m</small></div><div class="lb-badge-col"><span class="badge s">Sponsored</span></div></div>
       <div class="lb-row gold"><div class="lb-rank">2</div><div class="lb-ath"><div class="lb-av">KM</div><div><div class="lb-name">Kavya Menon</div><div class="lb-loc">Kerala · 20</div></div></div><div class="lb-pb">61.8<small>m</small></div><div class="lb-badge-col"><span class="badge s">Sponsored</span></div></div>
@@ -769,6 +770,33 @@
       </div>
     </div>
 
+    <div id="tab-afi" class="tab-pane">
+      <div style="margin-bottom:28px">
+        <h2 class="h3" style="margin-bottom:8px">AFI National Rankings · Javelin</h2>
+        <p style="font-size:13px;color:var(--dim);line-height:1.6;max-width:720px">Top 5 by best mark in the 2025 season, from the Athletics Federation of India's official ranking list (as of 14 Dec 2025). AFI publishes senior lists only; these include athletes of all ages.</p>
+      </div>
+      <div class="rk-grid">
+        <div class="rk-col">
+          <h3 class="rk-title">Men · 800g</h3>
+          <div class="lb-row head rk-row"><div class="label-xs">#</div><div class="label-xs">Athlete</div><div class="label-xs">Best</div></div>
+          <div class="lb-row gold rk-row"><div class="lb-rank">1</div><div class="lb-ath"><div class="lb-av">NC</div><div><div class="lb-name">Neeraj Chopra</div><div class="lb-loc">Haryana · Diamond League, Doha · 16 May 2025</div></div></div><div class="lb-pb">90.23<small>m</small> <span class="rk-nr">NR</span></div></div>
+          <div class="lb-row gold rk-row"><div class="lb-rank">2</div><div class="lb-ath"><div class="lb-av">SY</div><div><div class="lb-name">Sachin Yadav</div><div class="lb-loc">Uttar Pradesh · World Championships, Tokyo · 18 Sep 2025</div></div></div><div class="lb-pb">86.27<small>m</small></div></div>
+          <div class="lb-row gold rk-row"><div class="lb-rank">3</div><div class="lb-ath"><div class="lb-av">RY</div><div><div class="lb-name">Rohit Yadav</div><div class="lb-loc">Uttar Pradesh · Inter-State Championships, Chennai · 24 Aug 2025</div></div></div><div class="lb-pb">83.65<small>m</small></div></div>
+          <div class="lb-row rk-row"><div class="lb-rank">4</div><div class="lb-ath"><div class="lb-av">YS</div><div><div class="lb-name">Yashvir Singh</div><div class="lb-loc">Rajasthan · Asian Championships, Gumi · 31 May 2025</div></div></div><div class="lb-pb">82.57<small>m</small></div></div>
+          <div class="lb-row rk-row"><div class="lb-rank">5</div><div class="lb-ath"><div class="lb-av">SL</div><div><div class="lb-name">Shivam Lohakare</div><div class="lb-loc">Maharashtra · Indian Open 6, Pune · 12 Jul 2025</div></div></div><div class="lb-pb">80.95<small>m</small></div></div>
+        </div>
+        <div class="rk-col">
+          <h3 class="rk-title">Women · 600g</h3>
+          <div class="lb-row head rk-row"><div class="label-xs">#</div><div class="label-xs">Athlete</div><div class="label-xs">Best</div></div>
+          <div class="lb-row gold rk-row"><div class="lb-rank">1</div><div class="lb-ath"><div class="lb-av">AR</div><div><div class="lb-name">Annu Rani</div><div class="lb-loc">Uttar Pradesh · Wiesław Maniak Memorial, Szczecin · 6 Aug 2025</div></div></div><div class="lb-pb">62.59<small>m</small></div></div>
+          <div class="lb-row gold rk-row"><div class="lb-rank">2</div><div class="lb-ath"><div class="lb-av">D</div><div><div class="lb-name">Deepika</div><div class="lb-loc">Haryana · Inter-State Championships, Chennai · 23 Aug 2025</div></div></div><div class="lb-pb">57.19<small>m</small></div></div>
+          <div class="lb-row gold rk-row"><div class="lb-rank">3</div><div class="lb-ath"><div class="lb-av">JR</div><div><div class="lb-name">Jyoti Rakesh</div><div class="lb-loc">Haryana · National Games, Dehradun · 9 Feb 2025</div></div></div><div class="lb-pb">55.55<small>m</small></div></div>
+          <div class="lb-row rk-row"><div class="lb-rank">4</div><div class="lb-ath"><div class="lb-av">KS</div><div><div class="lb-name">Karishma S Sanil</div><div class="lb-loc">Karnataka · National Games, Dehradun · 9 Feb 2025</div></div></div><div class="lb-pb">55.55<small>m</small></div></div>
+          <div class="lb-row rk-row"><div class="lb-rank">5</div><div class="lb-ath"><div class="lb-av">RJ</div><div><div class="lb-name">Ramyashree Jain</div><div class="lb-loc">Karnataka · National Games, Dehradun · 9 Feb 2025</div></div></div><div class="lb-pb">54.85<small>m</small></div></div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:var(--dim);margin-top:24px">Source: <a href="https://indianathletics.in/wp-content/uploads/2026/04/AFIranklists_14DEC2025-1.pdf" target="_blank" rel="noopener" style="color:var(--red)">AFI National Rankings 2025 (PDF)</a> · NR = National Record</p>
+    </div>
     <div id="tab-enroll" class="tab-pane">
       <div class="enroll-wrap">
         <div>
