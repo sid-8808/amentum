@@ -19,8 +19,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:600;height:var(--nav-h);display:
 .nav-brand{font-size:13px;font-weight:600;letter-spacing:.05em}
 .nav-brand em{color:var(--red);font-style:normal}
 .nav-links{display:flex;gap:36px;list-style:none}
-.nav-links button{background:none;border:none;font-size:12px;font-weight:400;color:var(--mid);letter-spacing:.01em;cursor:pointer;transition:color .2s;font-family:inherit;padding:0}
-.nav-links button:hover,.nav-links button.active{color:var(--ink)}
+.nav-links button,.nav-links a{background:none;border:none;font-size:12px;font-weight:400;color:var(--mid);letter-spacing:.01em;cursor:pointer;transition:color .2s;font-family:inherit;padding:0}
+.nav-links button:hover,.nav-links button.active,.nav-links a:hover,.nav-links a.active{color:var(--ink)}
 .nav-right{display:flex;align-items:center;gap:18px}
 .nav-social{display:flex;gap:14px;align-items:center}
 .nav-social a{color:var(--dim);transition:color .2s;display:flex;align-items:center;justify-content:center}
@@ -657,3 +657,9 @@ footer{background:var(--ink);padding:80px 52px 48px}
 .rk-refresh:disabled{opacity:.55;cursor:wait}
 .rk-news{display:inline-block;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:.06em;color:#1d4ed8;background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:1px 5px;margin-left:4px;vertical-align:middle;text-decoration:none}
 
+
+/* SEO: real links in the nav, one <h1> per page */
+a.nav-logo{color:inherit;text-decoration:none}
+.nav-links a{text-decoration:none;display:inline-block}
+:where(h2[data-h1]){margin:0}  /* match the site reset for h1, so demoted page titles look identical */
+[data-h1].feat-t{font-weight:400;margin-top:0}

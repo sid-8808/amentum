@@ -3,26 +3,43 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="description" content="Amentum Sports — Largest javelin store in Asia. World-class javelins engineered for India. Zero customs. INR pricing."/>
+<!--SEO-->
 <title>Amentum Sports | Largest Javelin Store in Asia</title>
+<meta name="description" content="Amentum Sports, the largest javelin store in Asia. World Athletics certified javelins made for Indian athletes, from ₹1,180 to ₹26,000, with pan-India delivery."/>
+<link rel="canonical" href="https://amentum-website.vercel.app/"/>
+<meta name="robots" content="index,follow,max-image-preview:large"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Amentum Sports"/>
+<meta property="og:locale" content="en_IN"/>
+<meta property="og:title" content="Amentum Sports | Largest Javelin Store in Asia"/>
+<meta property="og:description" content="Amentum Sports, the largest javelin store in Asia. World Athletics certified javelins made for Indian athletes, from ₹1,180 to ₹26,000, with pan-India delivery."/>
+<meta property="og:url" content="https://amentum-website.vercel.app/"/>
+<meta property="og:image" content="https://amentum-website.vercel.app/images/amentum_logo.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Amentum Sports | Largest Javelin Store in Asia"/>
+<meta name="twitter:description" content="Amentum Sports, the largest javelin store in Asia. World Athletics certified javelins made for Indian athletes, from ₹1,180 to ₹26,000, with pan-India delivery."/>
+<meta name="twitter:image" content="https://amentum-website.vercel.app/images/amentum_logo.png"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Amentum Sports","url":"https://amentum-website.vercel.app/","logo":"https://amentum-website.vercel.app/images/amentum_logo.png","sameAs":["https://www.instagram.com/amentum.sports/","https://www.facebook.com/amentumsports/","https://www.youtube.com/@amentumsports5857"],"contactPoint":{"@type":"ContactPoint","telephone":"+919827654830","contactType":"sales","areaServed":"IN","availableLanguage":["en","hi"]}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Amentum Sports","url":"https://amentum-website.vercel.app/"}</script>
+<!--/SEO-->
 <link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/css/style.css"/>
+<link rel="stylesheet" href="/css/style.css?v=97bc26bb"/>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 <div id="cursor"></div>
 <nav id="nav">
-  <div class="nav-logo" onclick="go('home')">
+  <a class="nav-logo" href="/" onclick="return navLink(event,'home')">
     <img src="/images/amentum_mark.png" alt="Amentum Sports Logo">
     <span class="nav-brand"><em>A</em>mentum Sports</span>
-  </div>
+  </a>
   <ul class="nav-links">
-    <li><button id="nl-home" class="active" onclick="go('home')">Home</button></li>
-    <li><button id="nl-shop" onclick="go('shop')">Shop</button></li>
-    <li><button id="nl-arena" onclick="go('arena')">Athlete Arena</button></li>
-    <li><button id="nl-insights" onclick="go('insights')">Insights</button></li>
+    <li><a id="nl-home" class="active" href="/" onclick="return navLink(event,'home')">Home</a></li>
+    <li><a id="nl-shop" href="/shop/" onclick="return navLink(event,'shop')">Shop</a></li>
+    <li><a id="nl-arena" href="/arena/" onclick="return navLink(event,'arena')">Athlete Arena</a></li>
+    <li><a id="nl-insights" href="/insights/" onclick="return navLink(event,'insights')">Insights</a></li>
   </ul>
   <div class="nav-right">
     <div class="nav-social">
@@ -40,7 +57,7 @@
   <section class="hero">
     <div class="hero-wm">AMENTUM</div>
     <div class="hero-badge r"><div class="badge-dot"></div>Mission 2028 — India's Podium Journey</div>
-    <h1 class="hero-title r" id="hero-title" style="transition-delay:.1s">Engineering<br>the <em>Future</em> of<br>Indian Athletics.</h1>
+    <h1 data-h1 class="hero-title r" id="hero-title" style="transition-delay:.1s">Engineering<br>the <em>Future</em> of<br>Indian Athletics.</h1>
     <p class="hero-sub r" id="hero-sub" style="transition-delay:.2s">World-class javelins. Professional training systems. Elite athlete management. Making javelin a way of life in India.</p>
     <div class="hero-ctas r" style="transition-delay:.3s">
       <button class="btn-fill" onclick="go('shop')">Shop Javelins</button>
@@ -53,7 +70,7 @@
     <div class="stat-item"><div class="stat-n"><em>Asia</em></div><div class="stat-l">Largest Javelin Store</div></div>
     <div class="stat-item"><div class="stat-n">₹<em>1,180</em></div><div class="stat-l">Starting Price</div></div>
     <div class="stat-item"><div class="stat-n"><em>9</em>+</div><div class="stat-l">Javelin Models</div></div>
-    <div class="stat-item"><div class="stat-n"><em>0</em>%</div><div class="stat-l">Customs Duties</div></div>
+    <div class="stat-item"><div class="stat-n"><em>5</em></div><div class="stat-l">WA Certified Models</div></div>
     <div class="stat-item"><div class="stat-n"><em>7</em></div><div class="stat-l">International Brands</div></div>
   </div>
 
@@ -198,9 +215,9 @@
       <div class="eyebrow r" style="color:var(--red)">Our Mission</div>
       <h2 class="h2 r" style="color:#fff;transition-delay:.06s">Structuring<br>the <em style="font-style:italic;color:var(--red)">unstructured.</em></h2>
       <p class="r" style="font-size:clamp(15px,1.5vw,17px);font-weight:300;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:22px;max-width:640px;transition-delay:.1s">India has many natural talents in javelin but no formalised training systems. No school-level curricula. PT coaches ill-equipped to train athletes. Most talent comes from Tier-2 cities, towns and villages with no local manufacturers and expensive imported gear.</p>
-      <p class="r" style="font-size:clamp(15px,1.5vw,17px);font-weight:300;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:36px;max-width:640px;transition-delay:.14s">Amentum Sports was built to fix exactly that. We engineer javelins in India, for Indian conditions. Starting at ₹1,180 — zero customs, pan-India delivery, professional training support.</p>
+      <p class="r" style="font-size:clamp(15px,1.5vw,17px);font-weight:300;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:36px;max-width:640px;transition-delay:.14s">Amentum Sports was built to fix exactly that. We engineer javelins in India, for Indian conditions. Starting at ₹1,180, with pan-India delivery and professional training support.</p>
       <div class="r" style="transition-delay:.18s">
-        <span class="chip" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.45)">Zero Customs</span>
+        <span class="chip" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.45)">Made in India</span>
         <span class="chip" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.45)">INR Pricing</span>
         <span class="chip" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.45)">Pan-India Shipping</span>
         <span class="chip" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.45)">Special Olympics Bharat</span>
@@ -211,8 +228,8 @@
 
   <!-- FACTS -->
   <div class="facts-row r">
-    <div class="fact"><div class="fact-n"><em>₹1,180</em></div><div class="fact-l">Lowest-priced competition javelin in Asia. No customs. Door delivery anywhere in India.</div></div>
-    <div class="fact"><div class="fact-n"><em>0</em>%</div><div class="fact-l">Customs duties on all Amentum products. Order from anywhere in India, no hidden costs.</div></div>
+    <div class="fact"><div class="fact-n"><em>₹1,180</em></div><div class="fact-l">Lowest-priced competition javelin in Asia. Door delivery anywhere in India.</div></div>
+    <div class="fact"><div class="fact-n"><em>5</em></div><div class="fact-l">World Athletics certified Amentum javelins, ready for national and international competition.</div></div>
     <div class="fact"><div class="fact-n"><em>#1</em></div><div class="fact-l">World ranking (U18) achieved by Rohit Yadav, trained by the Amentum coaching system.</div></div>
   </div>
 
@@ -222,7 +239,7 @@
     <div class="pillars rs">
       <div class="pillar"><svg class="pillar-ico" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="15" r="8" stroke="#0a0a0a" stroke-width="1.5"/><path d="M8 38c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="#0a0a0a" stroke-width="1.5"/></svg><div class="pillar-t">Athlete Management</div><div class="pillar-b">Managing top Indian athletes across Youth, Junior and Senior levels. End-to-end sponsorship, world-class training systems. Brand ambassador Davinder Singh Kang leads our outreach and athlete development.</div><span class="pillar-link">Elite Icons →</span></div>
       <div class="pillar"><svg class="pillar-ico" viewBox="0 0 44 44" fill="none"><rect x="6" y="16" width="32" height="22" rx="2" stroke="#0a0a0a" stroke-width="1.5"/><path d="M16 16V11a6 6 0 0 1 12 0v5" stroke="#0a0a0a" stroke-width="1.5"/></svg><div class="pillar-t">Infrastructure</div><div class="pillar-b">Mini-Javelin curriculum kits, javelin workshops across India, coach certification, and our flagship Amentum Javelin Championship annually. Official Mini-Javelin partner of Special Olympics Bharat.</div><span class="pillar-link">Schools &amp; Academies →</span></div>
-      <div class="pillar"><svg class="pillar-ico" viewBox="0 0 44 44" fill="none"><path d="M8 8h5l4 22h16l4-13H16" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="36" r="2.5" stroke="#0a0a0a" stroke-width="1.5"/><circle cx="31" cy="36" r="2.5" stroke="#0a0a0a" stroke-width="1.5"/></svg><div class="pillar-t">The Shop</div><div class="pillar-b">Zero customs. INR pricing. ₹1,180 to ₹26,000. Nine Amentum models plus 7 international brands — Nemeth, Polanik, Nordic Sport, Gill Athletics, Nishi, Denfi Sport, and Turbojav.</div><span class="pillar-link">Shop Now →</span></div>
+      <div class="pillar"><svg class="pillar-ico" viewBox="0 0 44 44" fill="none"><path d="M8 8h5l4 22h16l4-13H16" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="36" r="2.5" stroke="#0a0a0a" stroke-width="1.5"/><circle cx="31" cy="36" r="2.5" stroke="#0a0a0a" stroke-width="1.5"/></svg><div class="pillar-t">The Shop</div><div class="pillar-b">INR pricing. ₹1,180 to ₹26,000. Nine Amentum models plus 7 international brands — Nemeth, Polanik, Nordic Sport, Gill Athletics, Nishi, Denfi Sport, and Turbojav.</div><span class="pillar-link">Shop Now →</span></div>
     </div>
   </section>
 
@@ -302,8 +319,8 @@
 <footer>
 <div class="foot-grid">
   <div><div class="foot-name"><em>A</em>mentum Sports</div><p class="foot-p">Largest javelin store in Asia. Structuring the unstructured since 2018. Making javelin a way of life in India.</p><div class="foot-social"><a href="https://www.instagram.com/amentum.sports/" target="_blank"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="15.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/amentumsports/" target="_blank"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><a href="https://www.youtube.com/@amentumsports5857" target="_blank"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a><a href="https://wa.me/+919827654830" target="_blank"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a></div><div style="margin-top:16px;font-size:12px;color:rgba(255,255,255,.22)">+91 9827654830</div></div>
-  <div class="foot-col"><h5>Products</h5><a onclick="go('shop')">Amentum Blue Green - The Nalwa — from ₹18,000</a><a onclick="go('shop')">Amentum Purple - The Chhatrapati — from ₹16,250</a><a onclick="go('shop')">Amentum Olympic Gold — from ₹13,000</a><a onclick="go('shop')">Amentum Black Panther — from ₹8,400</a><a onclick="go('shop')">Amentum Shakti - Purple — ₹7,800</a><a onclick="go('shop')">Amentum Vayuj Series</a></div>
-  <div class="foot-col"><h5>Company</h5><a onclick="go('home')">About Us</a><a onclick="go('arena')">Athlete Arena</a><a onclick="go('home')">Grassroots</a><a onclick="go('insights');setTimeout(()=>openArticle('special-olympics'),300)">Special Olympics</a><a onclick="waEnquiry('Partnership Inquiry — Amentum Sports','Let\'s connect')">Partner With Us</a></div>
+  <div class="foot-col"><h5>Products</h5><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Blue Green - The Nalwa — from ₹18,000</a><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Purple - The Chhatrapati — from ₹16,250</a><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Olympic Gold — from ₹13,000</a><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Black Panther — from ₹8,400</a><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Shakti - Purple — ₹7,800</a><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Vayuj Series</a></div>
+  <div class="foot-col"><h5>Company</h5><a href="/" onclick="return navLink(event,'home')">About Us</a><a href="/arena/" onclick="return navLink(event,'arena')">Athlete Arena</a><a href="/" onclick="return navLink(event,'home')">Grassroots</a><a href="/insights/" onclick="if(navLink(event,'insights'))return true;setTimeout(()=>openArticle('special-olympics'),300);return false">Special Olympics</a><a onclick="waEnquiry('Partnership Inquiry — Amentum Sports','Let\'s connect')">Partner With Us</a></div>
   <div class="foot-col"><h5>Connect</h5><a href="https://www.instagram.com/amentum.sports/" target="_blank">Instagram</a><a href="https://www.facebook.com/amentumsports/" target="_blank">Facebook</a><a href="https://www.youtube.com/@amentumsports5857" target="_blank">YouTube</a><a href="https://wa.me/+919827654830" target="_blank">WhatsApp</a><a href="tel:+919827654830">+91 9827654830</a></div>
 </div>
 <div class="foot-bottom"><div class="foot-slogan">Structured. Affordable. Elite.</div><div class="foot-copy">© 2025 Amentum Sports. All rights reserved.</div></div>
@@ -314,8 +331,8 @@
 <div id="page-shop" class="page">
   <div class="shop-hero">
     <div class="eyebrow r">The Arsenal</div>
-    <h1 class="h1 r" style="transition-delay:.1s;font-family:'DM Serif Display',serif;line-height:.93;letter-spacing:-.035em">Every<br><em style="font-style:italic;color:var(--red)">throw</em>,<br>engineered.</h1>
-    <p class="r" style="font-size:16px;font-weight:300;color:var(--mid);max-width:560px;line-height:1.7;margin-top:16px;transition-delay:.2s">Nine Amentum javelins — pay &amp; order directly. Plus 7 international brands available on WhatsApp enquiry. Zero customs. Pan-India shipping.</p>
+    <h2 data-h1 class="h1 r" style="transition-delay:.1s;font-family:'DM Serif Display',serif;line-height:.93;letter-spacing:-.035em">Every<br><em style="font-style:italic;color:var(--red)">throw</em>,<br>engineered.</h2>
+    <p class="r" style="font-size:16px;font-weight:300;color:var(--mid);max-width:560px;line-height:1.7;margin-top:16px;transition-delay:.2s">Nine Amentum javelins — pay &amp; order directly. Plus 7 international brands available on WhatsApp enquiry. Pan-India shipping.</p>
   </div>
   <div class="shop-filters">
     <button class="fpill on" data-filter="all">All</button>
@@ -541,7 +558,7 @@
       <div class="eyebrow" style="margin-bottom:14px">International Brands — 7 Brands · WhatsApp Enquiry</div>
       <h2 class="h2" style="margin-bottom:14px">World's best brands, now in India.</h2>
       <p class="body-lg" style="max-width:680px;margin-bottom:16px">We are the authorised distributor for 7 of the world's leading javelin brands in India. All on-request orders — send us an enquiry via WhatsApp and we will respond within 24 hours with pricing, availability, and delivery timeline.</p>
-      <div style="display:inline-flex;align-items:center;gap:8px;background:var(--red-bg);border:1px solid var(--red-bdr);border-radius:10px;padding:10px 18px;font-size:12px;font-weight:500;color:var(--red)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>All international brand orders are WhatsApp enquiry-based. Zero import duty for you.</div>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:var(--red-bg);border:1px solid var(--red-bdr);border-radius:10px;padding:10px 18px;font-size:12px;font-weight:500;color:var(--red)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>All international brand orders are WhatsApp enquiry-based.</div>
     </div>
 <div class="brand-card" data-cat="international">
       <div class="brand-card-top">
@@ -741,7 +758,7 @@
     <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px">
       <div>
         <div class="eyebrow r">The Athlete Arena</div>
-        <h1 style="font-family:'DM Serif Display',serif;font-size:clamp(44px,7vw,92px);letter-spacing:-.035em;line-height:.96" class="r">Fastest Arm<br><em style="font-style:italic;color:var(--red)">India.</em></h1>
+        <h2 data-h1 style="font-family:'DM Serif Display',serif;font-size:clamp(44px,7vw,92px);letter-spacing:-.035em;line-height:.96" class="r">Fastest Arm<br><em style="font-style:italic;color:var(--red)">India.</em></h2>
         <p style="font-size:15px;font-weight:300;color:var(--mid);margin-top:14px;max-width:440px;line-height:1.7" class="r">Professional scouting ecosystem. Enroll, get ranked, get sponsored.</p>
       </div>
       <div style="text-align:right" class="r"><div class="label-xs" style="margin-bottom:6px">Rankings updated</div><div style="font-family:'DM Serif Display',serif;font-size:32px;letter-spacing:-.025em">May 2025</div></div>
@@ -926,7 +943,7 @@
     </div>
     <div class="feat-body">
       <span class="feat-tag">Breaking News · May 2025</span>
-      <div class="feat-t">Neeraj Chopra Breaks 90m — India's Greatest Athletic Milestone</div>
+      <h2 data-h1 class="feat-t">Neeraj Chopra Breaks 90m — India's Greatest Athletic Milestone</h2>
       <p class="feat-ex">On May 16, 2025, Neeraj Chopra became the first Indian athlete to throw beyond 90 metres — achieving 90.23m at the Doha Diamond League and setting a new national record.</p>
       <div>
         <div style="font-size:12px;color:var(--dim);margin-bottom:16px">Amentum Editorial · May 2025 · 8 min read</div>
@@ -1026,8 +1043,8 @@
 <footer>
 <div class="foot-grid">
   <div><div class="foot-name"><em>A</em>mentum Sports</div><p class="foot-p">Largest javelin store in Asia. Structuring the unstructured since 2018. Making javelin a way of life in India.</p><div class="foot-social"><a href="https://www.instagram.com/amentum.sports/" target="_blank"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="15.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/amentumsports/" target="_blank"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><a href="https://www.youtube.com/@amentumsports5857" target="_blank"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a><a href="https://wa.me/+919827654830" target="_blank"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a></div><div style="margin-top:16px;font-size:12px;color:rgba(255,255,255,.22)">+91 9827654830</div></div>
-  <div class="foot-col"><h5>Products</h5><a onclick="go('shop')">Amentum Blue Green - The Nalwa — from ₹18,000</a><a onclick="go('shop')">Amentum Purple - The Chhatrapati — from ₹16,250</a><a onclick="go('shop')">Amentum Olympic Gold — from ₹13,000</a><a onclick="go('shop')">Amentum Black Panther — from ₹8,400</a><a onclick="go('shop')">Amentum Shakti - Purple — ₹7,800</a><a onclick="go('shop')">Amentum Vayuj Series</a></div>
-  <div class="foot-col"><h5>Company</h5><a onclick="go('home')">About Us</a><a onclick="go('arena')">Athlete Arena</a><a onclick="go('home')">Grassroots</a><a onclick="go('insights');setTimeout(()=>openArticle('special-olympics'),300)">Special Olympics</a><a onclick="waEnquiry('Partnership Inquiry — Amentum Sports','Let\'s connect')">Partner With Us</a></div>
+  <div class="foot-col"><h5>Products</h5><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Blue Green - The Nalwa — from ₹18,000</a><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Purple - The Chhatrapati — from ₹16,250</a><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Olympic Gold — from ₹13,000</a><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Black Panther — from ₹8,400</a><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Shakti - Purple — ₹7,800</a><a href="/shop/" onclick="return navLink(event,'shop')">Amentum Vayuj Series</a></div>
+  <div class="foot-col"><h5>Company</h5><a href="/" onclick="return navLink(event,'home')">About Us</a><a href="/arena/" onclick="return navLink(event,'arena')">Athlete Arena</a><a href="/" onclick="return navLink(event,'home')">Grassroots</a><a href="/insights/" onclick="if(navLink(event,'insights'))return true;setTimeout(()=>openArticle('special-olympics'),300);return false">Special Olympics</a><a onclick="waEnquiry('Partnership Inquiry — Amentum Sports','Let\'s connect')">Partner With Us</a></div>
   <div class="foot-col"><h5>Connect</h5><a href="https://www.instagram.com/amentum.sports/" target="_blank">Instagram</a><a href="https://www.facebook.com/amentumsports/" target="_blank">Facebook</a><a href="https://www.youtube.com/@amentumsports5857" target="_blank">YouTube</a><a href="https://wa.me/+919827654830" target="_blank">WhatsApp</a><a href="tel:+919827654830">+91 9827654830</a></div>
 </div>
 <div class="foot-bottom"><div class="foot-slogan">Structured. Affordable. Elite.</div><div class="foot-copy">© 2025 Amentum Sports. All rights reserved.</div></div>
@@ -1177,7 +1194,7 @@
       <div class="art-title">The Business of Javelin in India: Why It's Finally Happening</div>
       <div class="art-meta">Amentum Editorial · January 2025 · 9 min read</div>
     </div>
-    <div class="art-body"><p>Before 2021, a javelin brand focused entirely on the Indian market would have seemed unusual. The sport had produced individual talent but no system, no infrastructure, and no commercial ecosystem. Amentum Sports was founded on the belief that this was about to change.</p><h4>The Chopra Effect</h4><p>Neeraj Chopra's Tokyo 2021 Olympic gold was India's first athletics gold and only the second individual gold in Olympic history. Within weeks, hundreds of academies across India reported inquiries from parents wanting to enroll children in javelin training. The AFI reported a surge in junior registrations. For a company selling javelins in India, this was a market-creating moment.</p><h4>The Supply Problem</h4><p>India had no domestic javelin manufacturers. All javelins were imported — primarily from Hungary (Nemeth), Poland (Polanik), Sweden (Nordic), and Germany. Import duties of 15-30% made international-grade javelins prohibitively expensive. Amentum's response: design and manufacture in India, for Indian conditions and budgets, while maintaining international quality. Result: a full range from ₹1,180 to ₹26,000.</p><h4>The Path to 2028</h4><p>India's javelin ecosystem in 2025 is fundamentally different from 2020. Dedicated grassroots competitions (Amentum Javelin Championship), structured online training, accessible equipment at every price point, and multiple athletes operating at international level. Mission 2028 is not a marketing slogan — it is an operational plan to build the ecosystem that makes multiple Olympic medals possible.</p></div>
+    <div class="art-body"><p>Before 2021, a javelin brand focused entirely on the Indian market would have seemed unusual. The sport had produced individual talent but no system, no infrastructure, and no commercial ecosystem. Amentum Sports was founded on the belief that this was about to change.</p><h4>The Chopra Effect</h4><p>Neeraj Chopra's Tokyo 2021 Olympic gold was India's first athletics gold and only the second individual gold in Olympic history. Within weeks, hundreds of academies across India reported inquiries from parents wanting to enroll children in javelin training. The AFI reported a surge in junior registrations. For a company selling javelins in India, this was a market-creating moment.</p><h4>The Supply Problem</h4><p>India had no domestic javelin manufacturers. All javelins were imported — primarily from Hungary (Nemeth), Poland (Polanik), Sweden (Nordic), and Germany. That made international-grade javelins prohibitively expensive for most Indian athletes. Amentum's response: design and manufacture in India, for Indian conditions and budgets, while maintaining international quality. Result: a full range from ₹1,180 to ₹26,000.</p><h4>The Path to 2028</h4><p>India's javelin ecosystem in 2025 is fundamentally different from 2020. Dedicated grassroots competitions (Amentum Javelin Championship), structured online training, accessible equipment at every price point, and multiple athletes operating at international level. Mission 2028 is not a marketing slogan — it is an operational plan to build the ecosystem that makes multiple Olympic medals possible.</p></div>
     <div class="art-footer">
       <button class="btn-fill" style="padding:10px 22px;font-size:12px" onclick="go('shop');closeArticle('business-of-javelin')">Shop Amentum Javelins →</button>
       <button class="btn-line" style="padding:10px 22px;font-size:12px" onclick="closeArticle('business-of-javelin')">Close</button>
@@ -1235,6 +1252,6 @@
   </div>
 </div>
 <div id="toast"></div>
-<script src="/js/main.js"></script>
+<script src="/js/main.js?v=e5711f8f"></script>
 </body>
 </html>

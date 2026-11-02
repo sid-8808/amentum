@@ -19,9 +19,17 @@ function initReveal(){document.querySelectorAll('.r,.rs,.rfade').forEach(el=>{el
 /* ── NAVIGATION ── */
 /* ── URL routing: each page has its own address (/, /shop/, /arena/, /insights/) ── */
 const PAGES=['home','shop','arena','insights'];
-const PAGE_TITLES={home:'Amentum Sports | Largest Javelin Store in Asia',shop:'Shop Javelins | Amentum Sports',arena:'Athlete Arena | Amentum Sports',insights:'Insights | Amentum Sports'};
+// keep in sync with PAGES in scripts/build-pages.mjs
+const PAGE_TITLES={home:'Amentum Sports | Largest Javelin Store in Asia',shop:'Buy Javelins Online in India | Amentum Sports Shop',arena:'Athlete Arena: AFI Javelin Rankings & Leaderboard | Amentum Sports',insights:'Javelin News & Insights | Amentum Sports'};
 const pagePath=p=>p==='home'?'/':'/'+p+'/';
 function pageFromPath(path){const m=String(path).match(/^\/([a-z]+)\/?$/);return m&&PAGES.includes(m[1])?m[1]:'home';}
+
+// Real <a href> links (crawlable): normal click switches page instantly;
+// Ctrl/Cmd/Shift/middle-click keep the browser's open-in-new-tab behaviour.
+function navLink(e,page){
+  if(e&&(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button===1))return true;
+  go(page);return false;
+}
 
 function go(page,opts){
   opts=opts||{};
@@ -31,7 +39,7 @@ function go(page,opts){
   }
   if(PAGE_TITLES[page])document.title=PAGE_TITLES[page];
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.nav-links button,.nav-links a').forEach(b=>b.classList.remove('active'));
   const pg=document.getElementById('page-'+page);
   if(pg)pg.classList.add('on');
   const nl=document.getElementById('nl-'+page);
@@ -633,12 +641,12 @@ const KB={
   greet:`Hi! 👋 Welcome to Amentum Sports — Asia's largest javelin store.\n\nHow can I help you today? You can ask about our javelins, how to order, international brands, the Amentum Javelin Championship, pricing, or anything else!`,
   products:`Our complete Amentum range (direct buy):\n\n🥇 *Amentum Blue Green - The Nalwa* — 700g / 80m ₹18,000 | 800g / 90m ₹26,000\n🥈 *Amentum Purple - The Chhatrapati* — 600g / 60m ₹16,250 | 800g / 80m ₹18,200\n🏅 *Amentum Olympic Gold* — 600g / 55m ₹13,000 | 700g / 70m ₹14,300 | 800g / 70m ₹14,300\n⚡ *Amentum Black Panther* — 600g ₹8,400 | 700g ₹8,640 | 800g ₹9,000 | 900g ₹11,000 | 1000g ₹12,500\n💜 *Amentum Shakti - Purple* — 500g / 50m ₹7,800\n❤️ *Amentum Shakti - Red* — 500g / 60m ₹12,000 · WA Certified\n🔴 *Amentum Red* — 600g ₹4,940 | 700g ₹5,070 | 800g ₹5,460\n⭐ *Amentum Gold Kids* — 400g ₹4,800 | 500g / 50m ₹4,900\n🌿 *Amentum Vayuj 400g - Multi-color* — 400g · Multi-color ₹1,298\n🌿 *Amentum Vayuj 300g - The Record Setter Mini Javelin* — 300g ₹1,180\n\nUse the weight dropdown on each product to select your variant.`,
   order:`*How to order Amentum Javelins (direct payment):*\n1. Go to the Shop page\n2. Select your weight/variant from the dropdown\n3. Click "Buy Now"\n4. Enter your details (name, phone, address)\n5. Pay via Razorpay — UPI, Cards, Net Banking, Wallets accepted\n6. WhatsApp confirmation sent automatically\n\n*International Brands (Nemeth, Polanik, Nordic, Gill, Nishi, Denfi, Turbojav):*\n→ Click "Send Enquiry via WhatsApp"\n→ We respond within 24 hrs`,
-  international:`We carry 7 world-class brands — all WhatsApp enquiry-based:\n\n🇭🇺 *Nemeth Javelins* — Hungary\n🇵🇱 *Polanik* — Poland\n🇸🇪 *Nordic Sport* — Sweden\n🇺🇸 *Gill Athletics* — USA\n🇯🇵 *Nishi Athletics* — Japan\n🇩🇰 *Denfi Sport* — Denmark\n🌍 *Turbojav* — Global\n\nZero import duty. WhatsApp: +91 9827654830`,
+  international:`We carry 7 world-class brands — all WhatsApp enquiry-based:\n\n🇭🇺 *Nemeth Javelins* — Hungary\n🇵🇱 *Polanik* — Poland\n🇸🇪 *Nordic Sport* — Sweden\n🇺🇸 *Gill Athletics* — USA\n🇯🇵 *Nishi Athletics* — Japan\n🇩🇰 *Denfi Sport* — Denmark\n🌍 *Turbojav* — Global\n\nWhatsApp: +91 9827654830`,
   ajc:`*Amentum Javelin Championship (AJC)* — our flagship annual event:\n\n🏆 Launched 2022\n🗺️ 18+ states represented\n👶 6 age categories (U-12 to Open)\n🎯 Every winner gets an Amentum javelin\n\nMultiple AJC alumni now compete at national and international level. AJC 2026 registrations opening soon — send us a WhatsApp to participate!`,
   ambassador:`Our brand ambassador is *Davinder Singh Kang*:\n\n🏅 First Indian to qualify for World Athletics Championships Javelin Final (London 2017)\n🥉 Asian Athletics Bronze 2017 — 83.29m\n🎯 Personal Best: 84.57m · National Champion\n🇮🇳 Mentor and workshop coach across India\n\nDavinder represents the fighting spirit of Indian javelin.`,
   pricing:`*Exact pricing from amentums.com:*\n\n• Amentum Vayuj 300g - The Record Setter Mini Javelin 300g — ₹1,180\n• Amentum Vayuj 400g - Multi-color 400g · Multi-color — ₹1,298\n• Amentum Gold Kids 400g — ₹4,800\n• Amentum Gold Kids 500g / 50m — ₹4,900\n• Amentum Red 600g — ₹4,940\n• Amentum Red 700g — ₹5,070\n• Amentum Red 800g — ₹5,460\n• Amentum Shakti - Purple 500g / 50m — ₹7,800\n• Amentum Shakti - Red 500g / 60m — ₹12,000\n• Amentum Black Panther 600g — ₹8,400\n• Amentum Black Panther 700g — ₹8,640\n• Amentum Black Panther 800g — ₹9,000\n• Amentum Black Panther 900g — ₹11,000\n• Amentum Black Panther 1000g — ₹12,500\n• Amentum Olympic Gold 600g / 55m — ₹13,000\n• Amentum Olympic Gold 700g / 70m — ₹14,300\n• Amentum Olympic Gold 800g / 70m — ₹14,300\n• Amentum Purple - The Chhatrapati 600g / 60m — ₹16,250\n• Amentum Purple - The Chhatrapati 800g / 80m — ₹18,200\n• Amentum Blue Green - The Nalwa 700g / 80m — ₹18,000\n• Amentum Blue Green - The Nalwa 800g / 90m — ₹26,000\n\n*International brands:* WhatsApp for pricing`,
   payment:`We accept via Razorpay:\n\n💳 Credit / Debit Cards\n📱 UPI (GPay, PhonePe, Paytm)\n🏦 Net Banking\n👛 Wallets\n\nAll 100% secured by Razorpay. After payment → WhatsApp confirmation with delivery details.`,
-  shipping:`Pan-India shipping. Zero customs on all Amentum products.\n\nSaves 15-30% vs. importing javelins yourself.\n\nDelivery: 3–7 business days. Bulk/institutional orders: dedicated logistics support.\n\n📞 +91 9827654830`,
+  shipping:`Pan-India shipping on all Amentum products.\n\nDelivery: 3–7 business days. Bulk/institutional orders: dedicated logistics support.\n\n📞 +91 9827654830`,
   bulk:`Institutional bulk packages:\n\n📦 Starter — 10 units · ₹28,000\n📦 Academy — 25 units · ₹64,000\n📦 Elite — 50 units · ₹1,18,000\n\nIncludes coach onboarding + training. Pay on the shop page or WhatsApp for custom quote.\n\n💬 wa.me/+919827654830`,
   special_olympics:`Amentum is the *Official Mini-Javelin Partner of Special Olympics India*.\n\nOur Vayuj 300g is Special Olympics Bharat approved — safe rubber tip, aerodynamic fin design.\n\nWe train coaches nationwide on Mini-Javelin systems for specially-abled athletes.`,
   contact:`📞 *+91 9827654830*\n💬 *WhatsApp:* wa.me/+919827654830\n📸 *Instagram:* @amentum.sports\n📘 *Facebook:* facebook.com/amentumsports\n▶️ *YouTube:* @amentumsports5857\n🌐 *amentums.com*`,
