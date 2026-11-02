@@ -656,3 +656,8 @@ footer{background:var(--ink);padding:80px 52px 48px}
 .rk-refresh:hover{border-color:var(--ink)}
 .rk-refresh:disabled{opacity:.55;cursor:wait}
 .rk-news{display:inline-block;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:.06em;color:#1d4ed8;background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:1px 5px;margin-left:4px;vertical-align:middle;text-decoration:none}
+
+/* Refresh button in the Arena tab bar (visible on every tab) */
+.arena-tabs{align-items:center}
+.arena-rk-btn{margin-left:auto;white-space:nowrap;flex-shrink:0}
+@media(max-width:960px){.arena-tabs{flex-wrap:wrap}.arena-rk-btn{margin:8px 0 12px}}
