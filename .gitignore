@@ -1,0 +1,5 @@
+# Never commit credentials (Razorpay key export, env files)
+*.csv
+.env
+.env.*
+.DS_Store

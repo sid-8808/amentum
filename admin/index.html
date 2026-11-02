@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Amentum Admin Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <img src="../images/amentum_logo.png" alt="Amentum">
+      <span><em>A</em>mentum Admin</span>
+    </div>
+    <div class="fg">
+      <label class="login-label">Username</label>
+      <input class="login-inp" type="text" id="l-user" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="fg" style="margin-top:14px">
+      <label class="login-label">Password</label>
+      <input class="login-inp" type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <div class="login-err" id="l-err"></div>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="admin-app">
+
+  <!-- TOP BAR -->
+  <div class="admin-top">
+    <div class="at-brand">
+      <img src="../images/amentum_logo.png" alt="Amentum">
+      <span><em>A</em>mentum <strong>Admin</strong></span>
+    </div>
+    <div class="at-right">
+      <span class="at-badge">Admin</span>
+      <button class="at-preview" onclick="window.open('../index.html','_blank')">↗ View Site</button>
+      <button class="at-logout" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sb-section">
+        <div class="sb-label">Overview</div>
+        <button class="sb-item active" onclick="nav('dashboard',this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </button>
+      </div>
+      <div class="sb-section">
+        <div class="sb-label">Store</div>
+        <button class="sb-item" onclick="nav('products',this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Products
+          <span class="sb-badge" id="sb-prod-count">9</span>
+        </button>
+        <button class="sb-item" onclick="nav('coupons',this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          Coupons
+        </button>
+      </div>
+      <div class="sb-section">
+        <div class="sb-label">Content</div>
+        <button class="sb-item" onclick="nav('insights',this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Insights / Blog
+          <span class="sb-badge" id="sb-art-count">12</span>
+        </button>
+        <button class="sb-item" onclick="nav('content',this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Website Content
+        </button>
+      </div>
+      <div class="sb-section">
+        <div class="sb-label">Athlete Arena</div>
+        <button class="sb-item" onclick="nav('athletes',this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Athletes
+          <span class="sb-badge" id="sb-ath-count">6</span>
+        </button>
+        <button class="sb-item" onclick="nav('leaderboard',this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          Leaderboard
+        </button>
+        <button class="sb-item" onclick="nav('enrollments',this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          Enrollments
+          <span class="sb-badge" id="sb-enroll-count">0</span>
+        </button>
+      </div>
+      <div class="sb-section">
+        <div class="sb-label">Settings</div>
+        <button class="sb-item" onclick="nav('settings',this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+          Settings
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN PANELS -->
+    <div class="main">
+
+      <!-- DASHBOARD -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="page-hd">
+          <div><h1>Dashboard</h1><p>Welcome back, Admin — here's your store overview.</p></div>
+          <button class="btn btn-red" onclick="nav('products',document.querySelector('.sb-item:nth-child(1)'))">+ Add Product</button>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="sc-label">Products</div><div class="sc-value" id="d-prod">9</div><div class="sc-sub">In store</div></div>
+          <div class="stat-card"><div class="sc-label">Articles</div><div class="sc-value" id="d-art">12</div><div class="sc-sub">Published + Draft</div></div>
+          <div class="stat-card"><div class="sc-label">Athletes</div><div class="sc-value" id="d-ath">6</div><div class="sc-sub">In Arena</div></div>
+          <div class="stat-card"><div class="sc-label">Coupons</div><div class="sc-value" id="d-coupons">4</div><div class="sc-sub">Active</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          <div class="card">
+            <div class="card-hd"><h3>Recent Articles</h3><button class="btn btn-ghost btn-sm" onclick="nav('insights',document.querySelectorAll('.sb-item')[3])">View All</button></div>
+            <div class="card-body" id="d-recent-articles"></div>
+          </div>
+          <div class="card">
+            <div class="card-hd"><h3>Pending Enrollments</h3><button class="btn btn-ghost btn-sm" onclick="nav('enrollments',document.querySelectorAll('.sb-item')[7])">View All</button></div>
+            <div class="card-body" id="d-pending-enrollments"><div class="empty-state"><p>No pending enrollments</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div class="panel" id="panel-products">
+        <div class="page-hd">
+          <div><h1>Products</h1><p>Manage your javelin catalogue and pricing.</p></div>
+          <button class="btn btn-red" onclick="openProductModal()">+ Add Product</button>
+        </div>
+        <div class="card">
+          <div class="card-hd">
+            <h3>All Products</h3>
+            <div class="search-wrap">
+              <svg class="search-ico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input class="search-inp" type="text" placeholder="Search products…" oninput="filterProducts(this.value)">
+            </div>
+          </div>
+          <div class="card-body" style="padding:0">
+            <table class="tbl" id="products-table"><thead><tr><th>Product</th><th>Category</th><th>Variants / Price</th><th>Status</th><th>Actions</th></tr></thead><tbody id="products-tbody"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- INSIGHTS / BLOG -->
+      <div class="panel" id="panel-insights">
+        <div class="page-hd">
+          <div><h1>Insights & Blog</h1><p>Create and manage articles that appear on the Insights page.</p></div>
+          <button class="btn btn-red" onclick="openArticleModal()">+ New Article</button>
+        </div>
+        <div class="card" style="margin-bottom:14px">
+          <div class="card-hd flex-between">
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-ghost btn-sm art-filter-btn active" data-status="all" onclick="filterArticles('all',this)">All</button>
+              <button class="btn btn-ghost btn-sm art-filter-btn" data-status="published" onclick="filterArticles('published',this)">Published</button>
+              <button class="btn btn-ghost btn-sm art-filter-btn" data-status="draft" onclick="filterArticles('draft',this)">Drafts</button>
+            </div>
+            <div class="search-wrap">
+              <svg class="search-ico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input class="search-inp" type="text" placeholder="Search articles…" oninput="searchArticles(this.value)">
+            </div>
+          </div>
+          <div class="card-body"><div class="blog-list" id="articles-list"></div></div>
+        </div>
+      </div>
+
+      <!-- WEBSITE CONTENT -->
+      <div class="panel" id="panel-content">
+        <div class="page-hd">
+          <div><h1>Website Content</h1><p>Edit homepage text, stats, mission, and team sections.</p></div>
+          <button class="btn btn-green" onclick="saveContent()">Save Changes</button>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-hd"><h3>Hero Section</h3></div>
+          <div class="card-body">
+            <div class="fg"><label class="fl">Hero Headline</label><input class="fi" id="c-hero-h" value="Engineering the Future of Indian Athletics."></div>
+            <div class="fg"><label class="fl">Sub-headline</label><textarea class="fi fta" id="c-hero-sub" rows="2">World-class javelins. Professional training systems. Elite athlete management. Making javelin a way of life in India.</textarea></div>
+            <div class="form-grid">
+              <div class="fg"><label class="fl">CTA Button 1 Text</label><input class="fi" id="c-cta1" value="Shop Javelins"></div>
+              <div class="fg"><label class="fl">CTA Button 2 Text</label><input class="fi" id="c-cta2" value="Athlete Arena →"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-hd"><h3>Stats Bar</h3></div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="fg"><label class="fl">Stat 1 Number</label><input class="fi" id="s1n" value="Asia"></div>
+              <div class="fg"><label class="fl">Stat 1 Label</label><input class="fi" id="s1l" value="Largest Javelin Store"></div>
+              <div class="fg"><label class="fl">Stat 2 Number</label><input class="fi" id="s2n" value="₹1,180"></div>
+              <div class="fg"><label class="fl">Stat 2 Label</label><input class="fi" id="s2l" value="Starting Price"></div>
+              <div class="fg"><label class="fl">Stat 3 Number</label><input class="fi" id="s3n" value="9+"></div>
+              <div class="fg"><label class="fl">Stat 3 Label</label><input class="fi" id="s3l" value="Javelin Models"></div>
+              <div class="fg"><label class="fl">Stat 4 Number</label><input class="fi" id="s4n" value="0%"></div>
+              <div class="fg"><label class="fl">Stat 4 Label</label><input class="fi" id="s4l" value="Customs Duties"></div>
+              <div class="fg"><label class="fl">Stat 5 Number</label><input class="fi" id="s5n" value="7"></div>
+              <div class="fg"><label class="fl">Stat 5 Label</label><input class="fi" id="s5l" value="International Brands"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-hd"><h3>Mission Section</h3></div>
+          <div class="card-body">
+            <div class="fg"><label class="fl">Mission Paragraph 1</label><textarea class="fi fta" id="c-mission1" rows="3">India has many natural talents in javelin but no formalised training systems. No school-level curricula. PT coaches ill-equipped to train athletes.</textarea></div>
+            <div class="fg"><label class="fl">Mission Paragraph 2</label><textarea class="fi fta" id="c-mission2" rows="3">Amentum Sports was built to fix exactly that. We engineer javelins in India, for Indian conditions. Starting at ₹1,180 — zero customs, pan-India delivery, professional training support.</textarea></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><h3>AJC Championship Section</h3></div>
+          <div class="card-body">
+            <div class="fg"><label class="fl">Description</label><textarea class="fi fta" id="c-ajc" rows="3">India's dedicated grassroots javelin competition — launched in 2022. Our flagship annual event attracts athletes from across the country at every age group, from U-14 to Open.</textarea></div>
+            <div class="form-grid-3">
+              <div class="fg"><label class="fl">States Count</label><input class="fi" id="ajc-states" value="18+"></div>
+              <div class="fg"><label class="fl">Categories</label><input class="fi" id="ajc-cats" value="6"></div>
+              <div class="fg"><label class="fl">Founded Year</label><input class="fi" id="ajc-year" value="2022"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATHLETES -->
+      <div class="panel" id="panel-athletes">
+        <div class="page-hd">
+          <div><h1>Athlete Profiles</h1><p>Manage registered athletes visible in the Arena.</p></div>
+          <button class="btn btn-red" onclick="openAthleteModal()">+ Add Athlete</button>
+        </div>
+        <div class="card">
+          <div class="card-hd flex-between">
+            <h3>All Athletes</h3>
+            <div style="display:flex;gap:8px;align-items:center">
+              <select class="fsel" style="width:auto;padding:6px 12px;font-size:12px" onchange="filterAthletesCat(this.value)">
+                <option value="all">All Categories</option>
+                <option value="Open">Open</option>
+                <option value="U-20">U-20</option>
+                <option value="U-18">U-18</option>
+                <option value="Women">Women</option>
+                <option value="U-16">U-16</option>
+              </select>
+              <button class="btn btn-ghost btn-sm" onclick="nav('leaderboard',document.querySelectorAll('.sb-item')[6])">Manage Leaderboard →</button>
+            </div>
+          </div>
+          <div class="card-body"><div class="ath-grid-admin" id="athletes-grid"></div></div>
+        </div>
+      </div>
+
+      <!-- LEADERBOARD -->
+      <div class="panel" id="panel-leaderboard">
+        <div class="page-hd">
+          <div><h1>Leaderboard — Fastest Arm India</h1><p>Manage national rankings. Drag to reorder. Top 3 get gear discounts.</p></div>
+          <button class="btn btn-green" onclick="saveLeaderboard()">Publish Rankings</button>
+        </div>
+        <div class="card">
+          <div class="card-hd flex-between">
+            <h3>Current Rankings</h3>
+            <select class="fsel" style="width:auto;padding:6px 12px;font-size:12px" onchange="loadLeaderboardCat(this.value)" id="lb-cat-sel">
+              <option value="Open">Open</option>
+              <option value="U-20">U-20</option>
+              <option value="U-18">U-18</option>
+              <option value="Women">Women</option>
+            </select>
+          </div>
+          <div class="card-body" style="padding:0">
+            <table class="tbl"><thead><tr><th>Rank</th><th>Athlete</th><th>PB (m)</th><th>State</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="lb-tbody"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENROLLMENTS -->
+      <div class="panel" id="panel-enrollments">
+        <div class="page-hd">
+          <div><h1>Enrollment Requests</h1><p>Review and approve athlete enrollment submissions.</p></div>
+        </div>
+        <div class="card">
+          <div class="card-body" id="enrollments-body">
+            <div class="empty-state">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+              <p>No pending enrollment requests</p>
+              <p style="margin-top:6px;font-size:11px">New enrollments from the Athlete Arena form will appear here.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COUPONS -->
+      <div class="panel" id="panel-coupons">
+        <div class="page-hd">
+          <div><h1>Coupons & Discounts</h1><p>Manage promo codes for the checkout.</p></div>
+          <button class="btn btn-red" onclick="openCouponModal()">+ New Coupon</button>
+        </div>
+        <div class="card">
+          <div class="card-body" style="padding:0">
+            <table class="tbl"><thead><tr><th>Code</th><th>Type</th><th>Value</th><th>Status</th><th>Uses</th><th>Actions</th></tr></thead>
+            <tbody id="coupons-tbody"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="panel" id="panel-settings">
+        <div class="page-hd"><div><h1>Settings</h1><p>API keys, credentials, and site configuration.</p></div></div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-hd"><h3>Payment & WhatsApp OTP</h3></div>
+          <div class="card-body">
+            <div class="fg"><label class="fl">Razorpay Key ID</label><input class="fi" id="s-rzp" placeholder="rzp_live_xxxxxxxxxxxxx" type="password"></div>
+            <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:16px">
+              <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px">📱 MSG91 WhatsApp OTP Setup</div>
+              <div style="font-size:11px;color:var(--dim);line-height:1.7">
+                1. Sign up free at <strong style="color:var(--blue)">msg91.com</strong> (free credits included)<br>
+                2. Go to <strong>OTP → SendOTP → Create Template</strong><br>
+                3. Template text: <em style="color:var(--text)">"{{otp}} is your OTP for Amentum Sports. Valid 10 mins. Don't share."</em><br>
+                4. Select channel: <strong>WhatsApp</strong> → Submit for approval (auto-approved for auth templates)<br>
+                5. Copy your <strong>Auth Key</strong> from API → Auth Key section<br>
+                6. Copy the <strong>Template ID</strong> from OTP → Templates list
+              </div>
+            </div>
+            <div class="fg"><label class="fl">MSG91 Auth Key</label><input class="fi" id="s-msg91-key" placeholder="MSG91 Auth Key (e.g. 447138T...)" type="password"></div>
+            <div class="fg"><label class="fl">MSG91 OTP Template ID</label><input class="fi" id="s-msg91-tpl" placeholder="WhatsApp OTP Template ID from MSG91 panel"></div>
+            <div class="fg"><label class="fl">WhatsApp Business Number</label><input class="fi" id="s-wa" value="+919827654830"></div>
+            <div class="divider"></div>
+            <div class="fg">
+              <label class="fl">Google Analytics</label>
+              <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px">
+                <div style="font-size:11px;color:var(--dim);line-height:1.7">
+                  Paste your <strong style="color:var(--text)">Measurement ID</strong> (looks like <em>G-XXXXXXXXXX</em>) from Google Analytics → Admin → Data Streams.<br>
+                  Tracking code injects automatically on every page of the main site. No manual HTML editing needed.
+                </div>
+              </div>
+              <input class="fi" id="s-ga" placeholder="G-XXXXXXXXXX">
+            </div>
+            <button class="btn btn-green" onclick="saveSettings()">Save Keys</button>
+            <button class="btn btn-ghost" style="margin-left:8px" onclick="testOTP()">Test OTP →</button>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-hd"><h3>Admin Access</h3></div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="fg"><label class="fl">New Password</label><input class="fi" id="s-pw1" type="password" placeholder="New password"></div>
+              <div class="fg"><label class="fl">Confirm Password</label><input class="fi" id="s-pw2" type="password" placeholder="Confirm password"></div>
+            </div>
+            <button class="btn btn-red" onclick="changePassword()">Change Password</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><h3>Data Management</h3></div>
+          <div class="card-body">
+            <div class="settings-row">
+              <div class="settings-label"><h4>Export All Data</h4><p>Download all products, articles, athletes as JSON</p></div>
+              <button class="btn btn-ghost" onclick="exportData()">Export JSON</button>
+            </div>
+            <div class="settings-row">
+              <div class="settings-label"><h4>Import Data</h4><p>Restore from a previously exported JSON file</p></div>
+              <label class="btn btn-ghost" style="cursor:pointer">Import JSON<input type="file" accept=".json" style="display:none" onchange="importData(this)"></label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-label"><h4>Reset to Defaults</h4><p>Clear all custom data and restore factory defaults</p></div>
+              <button class="btn btn-outline" onclick="resetToDefaults()" style="color:#ef4444;border-color:#ef4444">Reset All</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /admin-body -->
+</div><!-- /admin-app -->
+
+<!-- PRODUCT MODAL -->
+<div class="modal-bg" id="prod-modal">
+  <div class="modal modal-lg">
+    <div class="modal-hd"><h3 id="prod-modal-title">Add Product</h3><button class="modal-close" onclick="closeProdModal()">×</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="fg"><label class="fl">Product Name</label><input class="fi" id="pm-name" placeholder="The Nalwa (Blue Green)"></div>
+        <div class="fg"><label class="fl">Product Code / SKU</label><input class="fi" id="pm-code" placeholder="AM-BLGR"></div>
+      </div>
+      <div class="form-grid">
+        <div class="fg">
+          <label class="fl">Category</label>
+          <select class="fi fsel" id="pm-cat">
+            <option value="competition">Competition</option>
+            <option value="training">Training</option>
+            <option value="youth">Youth & Schools</option>
+            <option value="mini">Mini Javelin</option>
+            <option value="international">International Brand</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">Level</label>
+          <select class="fi fsel" id="pm-level">
+            <option>Beginner</option><option>Intermediate</option>
+            <option>Intermediate / Pro</option><option>Pro / Elite</option><option>Grassroots</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="fg">
+          <label class="fl">Flex Rating</label>
+          <select class="fi fsel" id="pm-flex"><option>Soft</option><option>Medium</option><option>Medium / Low</option><option>Low</option><option>N/A</option></select>
+        </div>
+        <div class="fg" style="display:flex;align-items:center;gap:12px;padding-top:24px">
+          <label class="toggle"><input type="checkbox" id="pm-wa-cert"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+          <span style="font-size:13px;color:var(--mid)">World Athletics Certified</span>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">Description</label><textarea class="fi fta" id="pm-desc" rows="3" placeholder="Product description…"></textarea></div>
+      <div class="fg"><label class="fl">Product Image URL</label><input class="fi" id="pm-img" placeholder="images/product.jpg or https://…"></div>
+      <div class="fg"><label class="fl">Image Background Color</label><input class="fi" id="pm-imgbg" placeholder="#f0f0f0" type="color" value="#f5f4f1"></div>
+      <div class="divider"></div>
+      <div class="flex-between" style="margin-bottom:10px">
+        <label class="fl" style="margin-bottom:0">Variants & Pricing</label>
+        <button class="add-variant-btn" onclick="addVariantRow()" style="width:auto;padding:5px 14px;font-size:12px;border-radius:6px">+ Add Variant</button>
+      </div>
+      <div class="variant-list" id="pm-variants"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeProdModal()">Cancel</button>
+      <button class="btn btn-red" onclick="saveProduct()">Save Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE MODAL -->
+<div class="modal-bg" id="art-modal">
+  <div class="modal modal-lg">
+    <div class="modal-hd"><h3 id="art-modal-title">New Article</h3><button class="modal-close" onclick="closeArticleModal()">×</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="fg">
+          <label class="fl">Category</label>
+          <select class="fi fsel" id="am-cat">
+            <option>India News</option><option>World Athletics</option>
+            <option>Pro's Playbook</option><option>Amentum in Action</option>
+            <option>Industry Deep Dive</option><option>Mission 2028</option><option>Equipment Guide</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">Status</label>
+          <select class="fi fsel" id="am-status">
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">Article Title</label><input class="fi" id="am-title" placeholder="Article headline…"></div>
+      <div class="fg"><label class="fl">Short Summary (shown on card)</label><textarea class="fi fta" id="am-summary" rows="2" placeholder="60–80 word summary shown on the Insights page card…"></textarea></div>
+      <div class="form-grid">
+        <div class="fg"><label class="fl">Author</label><input class="fi" id="am-author" value="Amentum Editorial"></div>
+        <div class="fg"><label class="fl">Date</label><input class="fi" id="am-date" type="text" placeholder="May 2025"></div>
+      </div>
+      <div class="fg"><label class="fl">Read Time</label><input class="fi" id="am-read" placeholder="8 min"></div>
+      <div class="fg">
+        <label class="fl">Full Article Content</label>
+        <div class="rte-toolbar">
+          <button class="rte-btn" onclick="rte('bold')" title="Bold"><strong>B</strong></button>
+          <button class="rte-btn" onclick="rte('italic')" title="Italic"><em>I</em></button>
+          <div class="rte-sep"></div>
+          <button class="rte-btn" onclick="rteH4()">H4</button>
+          <button class="rte-btn" onclick="rtePara()">¶</button>
+          <div class="rte-sep"></div>
+          <button class="rte-btn" onclick="rte('insertUnorderedList')">• List</button>
+          <button class="rte-btn" onclick="rte('createLink',prompt('URL:'))">Link</button>
+          <div class="rte-sep"></div>
+          <button class="rte-btn" onclick="rte('removeFormat')">Clear</button>
+        </div>
+        <div class="rte-content" id="am-body" contenteditable="true"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeArticleModal()">Cancel</button>
+      <button class="btn btn-ghost" onclick="saveArticle('draft')">Save as Draft</button>
+      <button class="btn btn-red" onclick="saveArticle('published')">Publish Article</button>
+    </div>
+  </div>
+</div>
+
+<!-- ATHLETE MODAL -->
+<div class="modal-bg" id="ath-modal">
+  <div class="modal">
+    <div class="modal-hd"><h3 id="ath-modal-title">Add Athlete</h3><button class="modal-close" onclick="closeAthModal()">×</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="fg"><label class="fl">Full Name</label><input class="fi" id="athm-name" placeholder="Rohit Yadav"></div>
+        <div class="fg"><label class="fl">Instagram Handle</label><input class="fi" id="athm-ig" placeholder="@rohityadav_throws"></div>
+      </div>
+      <div class="form-grid">
+        <div class="fg">
+          <label class="fl">Category</label>
+          <select class="fi fsel" id="athm-cat">
+            <option>Open</option><option>U-20</option><option>U-18</option>
+            <option>U-16</option><option>Women</option><option>Para-Athletics</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">State</label><input class="fi" id="athm-state" placeholder="Haryana"></div>
+      </div>
+      <div class="form-grid">
+        <div class="fg"><label class="fl">Personal Best (m)</label><input class="fi" id="athm-pb" type="number" step="0.01" placeholder="84.57"></div>
+        <div class="fg"><label class="fl">Age</label><input class="fi" id="athm-age" type="number" placeholder="22"></div>
+      </div>
+      <div class="fg"><label class="fl">Current Gear</label><input class="fi" id="athm-gear" placeholder="The Nalwa — ₹26,000"></div>
+      <div class="fg">
+        <label class="fl">Status</label>
+        <select class="fi fsel" id="athm-status">
+          <option value="active">Active</option>
+          <option value="sponsored">Sponsored</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+      <div class="fg" style="display:flex;align-items:center;gap:10px">
+        <label class="toggle"><input type="checkbox" id="athm-verified"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+        <span style="font-size:13px;color:var(--mid)">Instagram Verified (follows @amentum.sports)</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeAthModal()">Cancel</button>
+      <button class="btn btn-red" onclick="saveAthlete()">Save Athlete</button>
+    </div>
+  </div>
+</div>
+
+<!-- COUPON MODAL -->
+<div class="modal-bg" id="coup-modal">
+  <div class="modal">
+    <div class="modal-hd"><h3>Add Coupon Code</h3><button class="modal-close" onclick="document.getElementById('coup-modal').classList.remove('open')">×</button></div>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Coupon Code</label><input class="fi" id="cm-code" placeholder="AMENTUM10" oninput="this.value=this.value.toUpperCase().replace(/\s/g,'')"></div>
+      <div class="form-grid">
+        <div class="fg">
+          <label class="fl">Discount Type</label>
+          <select class="fi fsel" id="cm-type">
+            <option value="percent">Percentage (%)</option>
+            <option value="flat">Flat Amount (₹)</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Value</label><input class="fi" id="cm-value" type="number" placeholder="10"></div>
+      </div>
+      <div class="fg"><label class="fl">Description <span class="optional">(optional)</span></label><input class="fi" id="cm-desc" placeholder="e.g. 10% off for Arena members"></div>
+      <div class="fg" style="display:flex;align-items:center;gap:10px">
+        <label class="toggle"><input type="checkbox" id="cm-active" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+        <span style="font-size:13px;color:var(--mid)">Active (visible to customers)</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="document.getElementById('coup-modal').classList.remove('open')">Cancel</button>
+      <button class="btn btn-red" onclick="saveCoupon()">Add Coupon</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="adm-toast"></div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
