@@ -295,3 +295,15 @@ img{display:block;max-width:100%}
 @media(max-width:540px){
   .ath-grid-admin{grid-template-columns:1fr}
 }
+
+/* ── INTL BRAND STOCK ── */
+.stock-add{display:grid;grid-template-columns:160px 1fr 110px auto;gap:12px;align-items:end}
+.stock-add .fg{margin:0}
+#panel-stock .tbl .fi{min-width:0;padding:7px 10px}
+#panel-stock .st-p{min-width:200px}
+.st-qty{display:flex;align-items:center;gap:4px}
+.st-qty .st-q{width:64px;text-align:center}
+@media(max-width:760px){.stock-add{grid-template-columns:1fr 1fr}.stock-add .fg:nth-child(2){grid-column:1/-1}}
+#panel-stock .card-body{overflow-x:auto}
+#panel-stock .tbl{min-width:760px}
+#panel-stock .st-b{min-width:110px}

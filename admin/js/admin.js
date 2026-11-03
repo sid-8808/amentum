@@ -3,33 +3,149 @@
    AMENTUM ADMIN PANEL — admin.js
 ══════════════════════════════════════════════════════ */
 
-/* ── AUTH ── */
-const ADMIN_CREDS_KEY = 'adm_creds';
-function getCreds(){ try{return JSON.parse(localStorage.getItem(ADMIN_CREDS_KEY))||{u:'admin',p:'amentum2025'};}catch{return{u:'admin',p:'amentum2025'};}}
-function doLogin(){
-  const u=document.getElementById('l-user').value.trim();
-  const p=document.getElementById('l-pass').value;
-  const c=getCreds();
-  if(u===c.u&&p===c.p){
-    sessionStorage.setItem('adm_auth','1');
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('admin-app').classList.add('show');
-    init();
-  } else {
-    document.getElementById('l-err').textContent='Incorrect username or password.';
-    setTimeout(()=>document.getElementById('l-err').textContent='',2500);
+/* ── SUPABASE (auth + live data) ──
+   Publishable key is safe in the browser: row-level security decides what each caller may do.
+   Only emails listed in public.admin_users can write. */
+const SB_URL='https://ahccfpviprtqxcpklkwf.supabase.co';
+const SB_KEY='sb_publishable_5NI48TN3v7JZb5R0ZaQ0ow_Cp-iUF8U';
+const SB_SESSION='adm_sb_session';
+const sb={
+  _get(){ try{return JSON.parse(localStorage.getItem(SB_SESSION));}catch{return null;} },
+  _set(d){ localStorage.setItem(SB_SESSION,JSON.stringify({access_token:d.access_token,refresh_token:d.refresh_token,expires_at:Math.floor(Date.now()/1000)+(d.expires_in||3600),email:(d.user&&d.user.email)||''})); },
+  clear(){ localStorage.removeItem(SB_SESSION); },
+  async _auth(path,body){
+    const r=await fetch(SB_URL+'/auth/v1/'+path,{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(d.error_description||d.msg||d.message||('HTTP '+r.status));
+    return d;
+  },
+  async signIn(email,password){ this._set(await this._auth('token?grant_type=password',{email,password})); },
+  async token(){
+    const s=this._get(); if(!s) return null;
+    if(s.expires_at-60>Date.now()/1000) return s.access_token;
+    try{ this._set(await this._auth('token?grant_type=refresh_token',{refresh_token:s.refresh_token})); return this._get().access_token; }
+    catch{ this.clear(); return null; }
+  },
+  async rest(path,opts={}){
+    const t=await this.token(); if(!t) throw new Error('Session expired — please sign in again.');
+    const r=await fetch(SB_URL+'/rest/v1/'+path,{...opts,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json',Prefer:'return=representation',...(opts.headers||{})}});
+    const txt=await r.text(); const d=txt?JSON.parse(txt):null;
+    if(!r.ok) throw new Error((d&&(d.message||d.hint))||('HTTP '+r.status));
+    return d;
+  },
+  async isAdmin(){ return (await this.rest('rpc/is_admin',{method:'POST',body:'{}'}))===true; },
+  async updatePassword(password){
+    const t=await this.token(); if(!t) throw new Error('Session expired — please sign in again.');
+    const r=await fetch(SB_URL+'/auth/v1/user',{method:'PUT',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify({password})});
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(d.msg||d.message||('HTTP '+r.status));
+  },
+  async signOut(){
+    const s=this._get();
+    if(s) fetch(SB_URL+'/auth/v1/logout',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+s.access_token}}).catch(()=>{});
+    this.clear();
   }
+};
+
+/* ── AUTH ── */
+function showApp(){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('admin-app').classList.add('show');
+  init();
 }
-function doLogout(){sessionStorage.removeItem('adm_auth');location.reload();}
-function changePassword(){
+function loginError(msg){
+  const el=document.getElementById('l-err'); el.textContent=msg;
+  setTimeout(()=>{ if(el.textContent===msg) el.textContent=''; },4000);
+}
+async function doLogin(){
+  const email=document.getElementById('l-user').value.trim().toLowerCase();
+  const pass=document.getElementById('l-pass').value;
+  if(!email||!pass){ loginError('Enter your email and password.'); return; }
+  const btn=document.querySelector('.login-btn'); btn.disabled=true; btn.textContent='Signing in…';
+  try{
+    await sb.signIn(email,pass);
+    if(!(await sb.isAdmin())){ await sb.signOut(); loginError('This account is not an admin.'); return; }
+    showApp();
+  }catch(e){
+    sb.clear();
+    loginError(/invalid login/i.test(e.message)?'Incorrect email or password.':e.message);
+  }finally{ btn.disabled=false; btn.textContent='Sign In →'; }
+}
+async function doLogout(){ await sb.signOut(); location.reload(); }
+async function changePassword(){
   const p1=document.getElementById('s-pw1').value;
   const p2=document.getElementById('s-pw2').value;
   if(!p1||!p2){admToast('Please enter both fields.','error');return;}
   if(p1!==p2){admToast('Passwords do not match.','error');return;}
-  const c=getCreds();
-  localStorage.setItem(ADMIN_CREDS_KEY,JSON.stringify({u:c.u,p:p1}));
-  admToast('Password changed. You will be logged out.','success');
-  setTimeout(doLogout,1800);
+  if(p1.length<8){admToast('Use at least 8 characters.','error');return;}
+  try{ await sb.updatePassword(p1); }catch(e){ admToast(e.message,'error'); return; }
+  document.getElementById('s-pw1').value=document.getElementById('s-pw2').value='';
+  admToast('Password changed. Use it next time you sign in.','success');
+}
+
+/* ── INTERNATIONAL BRAND STOCK (live in Supabase) ── */
+const INTL_BRANDS=['Nemeth','Polanik','Nordic','Gill','Nishi','Denfi','Turbojav']; // must match data-brand on the shop's brand cards
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let stockRows=[];
+function brandOptions(sel){ return INTL_BRANDS.map(b=>`<option${b===sel?' selected':''}>${b}</option>`).join(''); }
+async function renderStock(){
+  const sel=document.getElementById('st-brand');
+  if(!sel.options.length) sel.innerHTML=brandOptions('Nemeth');
+  const tb=document.getElementById('stock-tbody');
+  try{ stockRows=await sb.rest('intl_stock?select=*&order=brand.asc,sort.asc,product.asc',{method:'GET'}); }
+  catch(e){ tb.innerHTML=`<tr><td colspan="5" style="color:var(--red)">Could not load stock: ${esc(e.message)}</td></tr>`; return; }
+  if(!stockRows.length){ tb.innerHTML='<tr><td colspan="5" style="color:var(--dim)">No stock yet. Add a product above.</td></tr>'; return; }
+  tb.innerHTML=stockRows.map(r=>`<tr data-id="${r.id}">
+    <td><select class="fi st-b">${brandOptions(r.brand)}</select></td>
+    <td><input class="fi st-p" maxlength="120" value="${esc(r.product)}"></td>
+    <td><div class="st-qty"><button class="btn btn-icon btn-ghost" onclick="stepStock('${r.id}',-1)" title="One less">−</button><input class="fi st-q" type="number" min="0" max="9999" value="${r.qty}"><button class="btn btn-icon btn-ghost" onclick="stepStock('${r.id}',1)" title="One more">+</button></div></td>
+    <td style="font-size:11px;color:var(--dim);white-space:nowrap">${new Date(r.updated_at).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})}</td>
+    <td><div class="tbl-actions">
+      <button class="btn btn-green" onclick="saveStock('${r.id}')">Save</button>
+      <button class="btn btn-icon btn-del" onclick="deleteStock('${r.id}')" title="Delete">🗑</button>
+    </div></td>
+  </tr>`).join('');
+}
+function readQty(v){ const n=Math.floor(Number(v)); return Number.isFinite(n)&&n>=0&&n<=9999?n:null; }
+async function addStock(){
+  const brand=document.getElementById('st-brand').value;
+  const product=document.getElementById('st-product').value.trim();
+  const qty=readQty(document.getElementById('st-qty').value);
+  if(!product){ admToast('Enter a product name.','error'); return; }
+  if(qty===null){ admToast('Quantity must be 0–9999.','error'); return; }
+  const sort=Math.max(0,...stockRows.filter(r=>r.brand===brand).map(r=>r.sort))+1;
+  const btn=document.getElementById('st-add-btn'); btn.disabled=true;
+  try{ await sb.rest('intl_stock',{method:'POST',body:JSON.stringify({brand,product,qty,sort})}); }
+  catch(e){ admToast(e.message,'error'); return; }
+  finally{ btn.disabled=false; }
+  document.getElementById('st-product').value=''; document.getElementById('st-qty').value='1';
+  admToast(`${product} added — live on the shop.`,'success');
+  renderStock();
+}
+async function saveStock(id,qtyOverride){
+  const tr=document.querySelector(`#stock-tbody tr[data-id="${id}"]`); if(!tr) return;
+  const product=tr.querySelector('.st-p').value.trim();
+  const qty=qtyOverride??readQty(tr.querySelector('.st-q').value);
+  if(!product){ admToast('Product name cannot be empty.','error'); return; }
+  if(qty===null){ admToast('Quantity must be 0–9999.','error'); return; }
+  try{ await sb.rest('intl_stock?id=eq.'+id,{method:'PATCH',body:JSON.stringify({brand:tr.querySelector('.st-b').value,product,qty})}); }
+  catch(e){ admToast(e.message,'error'); return; }
+  admToast(`Saved: ${product} × ${qty}`,'success');
+  renderStock();
+}
+function stepStock(id,d){
+  const tr=document.querySelector(`#stock-tbody tr[data-id="${id}"]`); if(!tr) return;
+  const q=readQty(tr.querySelector('.st-q').value); if(q===null) return;
+  const n=Math.max(0,Math.min(9999,q+d)); tr.querySelector('.st-q').value=n;
+  saveStock(id,n);
+}
+async function deleteStock(id){
+  const r=stockRows.find(x=>x.id===id); if(!r) return;
+  if(!confirm(`Remove "${r.product}" from the shop?`)) return;
+  try{ await sb.rest('intl_stock?id=eq.'+id,{method:'DELETE'}); }
+  catch(e){ admToast(e.message,'error'); return; }
+  admToast('Removed.','success');
+  renderStock();
 }
 
 /* ── STORAGE HELPERS ── */
@@ -124,6 +240,7 @@ function renderPanel(p){
   if(p==='athletes') renderAthletes();
   if(p==='leaderboard') renderLeaderboard();
   if(p==='coupons') renderCoupons();
+  if(p==='stock') renderStock();
   if(p==='enrollments') renderEnrollments();
   if(p==='settings'){
     const rzp=LS.get('site_rzp_key','');
@@ -628,11 +745,10 @@ document.addEventListener('click',e=>{
 });
 
 /* ── AUTO-START ── */
-window.addEventListener('DOMContentLoaded',()=>{
-  if(sessionStorage.getItem('adm_auth')==='1'){
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('admin-app').classList.add('show');
-    init();
+window.addEventListener('DOMContentLoaded',async()=>{
+  localStorage.removeItem('adm_creds'); sessionStorage.removeItem('adm_auth'); // old local-only login
+  if(await sb.token()){
+    try{ if(await sb.isAdmin()) showApp(); else sb.clear(); }catch{ /* offline or expired: show login */ }
   }
   document.getElementById('l-user').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('l-pass').focus(); });
 });

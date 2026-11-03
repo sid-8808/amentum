@@ -138,6 +138,38 @@ function waEnquiry(product, price){
   window.open(`https://wa.me/${waNum}?text=${msg}`,'_blank');
 }
 
+/* ── INTERNATIONAL BRAND STOCK (Supabase, edited in admin) ── */
+// Publishable key: safe in the browser. Row-level security allows reads only; writes need an admin login.
+const SB_URL='https://ahccfpviprtqxcpklkwf.supabase.co';
+const SB_KEY='sb_publishable_5NI48TN3v7JZb5R0ZaQ0ow_Cp-iUF8U';
+const escHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function loadIntlStock(){
+  let rows;
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/intl_stock?select=brand,product,qty&order=brand.asc,sort.asc,product.asc`,{headers:{apikey:SB_KEY}});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    rows=await r.json();
+  }catch(e){console.warn('Stock unavailable:',e.message);return;} // no stock shown; enquiry button still works
+  const byBrand={};
+  rows.forEach(x=>(byBrand[x.brand]=byBrand[x.brand]||[]).push(x));
+  document.querySelectorAll('.brand-card[data-brand]').forEach(card=>{
+    const box=card.querySelector('.brand-stock'); if(!box)return;
+    const list=byBrand[card.dataset.brand]||[];
+    if(!list.length){box.hidden=true;box.innerHTML='';return;}
+    box.innerHTML='<div class="bs-hd">In stock now</div>'+list.map(x=>{
+      const q=x.qty|0, label=q>0?`${q} in stock`:'Out of stock';
+      return `<button type="button" class="bs-row${q>0?'':' out'}" data-product="${escHtml(x.product)}" data-qty="${q}"><span class="bs-name">${escHtml(x.product)}</span><span class="bs-qty">${label}</span></button>`;
+    }).join('');
+    box.hidden=false;
+  });
+}
+document.addEventListener('click',e=>{
+  const row=e.target.closest('.bs-row'); if(!row)return;
+  const q=+row.dataset.qty;
+  waEnquiry(`${row.dataset.product} (${q>0?q+' in stock':'out of stock, please notify me'})`,'Price on Request');
+});
+document.addEventListener('DOMContentLoaded',loadIntlStock);
+
 /* ── RAZORPAY PAYMENT ── */
 /* ════════════════════════════════════════════
    CHECKOUT — Product Variants, OTP, Coupon

@@ -199,6 +199,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:600;height:var(--nav-h);display:
 .brand-desc{font-size:12px;color:var(--mid);line-height:1.6;flex:1;margin-bottom:18px}
 .brand-enquiry{width:100%;background:var(--ink);color:var(--w);border:none;padding:12px;border-radius:9px;font-family:inherit;font-size:12px;font-weight:500;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:7px}
 .brand-enquiry:hover{background:var(--red)}
+.brand-stock{margin:-6px 0 16px;border:1px solid var(--border);border-radius:9px;overflow:hidden}
+.bs-hd{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--red);padding:8px 12px;background:var(--red-bg);border-bottom:1px solid var(--border)}
+.bs-row{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;background:none;border:none;border-bottom:1px solid var(--border);padding:9px 12px;font-family:inherit;font-size:12px;color:var(--ink);text-align:left;cursor:pointer;transition:background .15s}
+.bs-row:last-child{border-bottom:none}
+.bs-row:hover{background:var(--off2)}
+.bs-name{min-width:0;overflow-wrap:anywhere}
+.bs-qty{flex-shrink:0;font-weight:600;color:#1a7f37;white-space:nowrap}
+.bs-row.out .bs-name{color:var(--dim)}.bs-row.out .bs-qty{color:var(--dim);font-weight:500}
 .inst-block{grid-column:1/-1;background:var(--ink);padding:64px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .inst-t{font-family:'DM Serif Display',serif;font-size:42px;letter-spacing:-.03em;color:var(--w);line-height:1.05;margin-bottom:16px}
 .inst-t em{font-style:italic}

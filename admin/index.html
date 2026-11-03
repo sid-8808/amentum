@@ -26,8 +26,8 @@ if(location.protocol!=='file:' && !location.pathname.endsWith('/') && !/\.html?$
       <span><em>A</em>mentum Admin</span>
     </div>
     <div class="fg">
-      <label class="login-label">Username</label>
-      <input class="login-inp" type="text" id="l-user" placeholder="admin" autocomplete="username">
+      <label class="login-label">Email</label>
+      <input class="login-inp" type="email" id="l-user" placeholder="info@amentums.com" autocomplete="username">
     </div>
     <div class="fg" style="margin-top:14px">
       <label class="login-label">Password</label>
@@ -75,6 +75,10 @@ if(location.protocol!=='file:' && !location.pathname.endsWith('/') && !/\.html?$
         <button class="sb-item" onclick="nav('coupons',this)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
           Coupons
+        </button>
+        <button class="sb-item" onclick="nav('stock',this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          Intl Brand Stock
         </button>
       </div>
       <div class="sb-section">
@@ -312,6 +316,31 @@ if(location.protocol!=='file:' && !location.pathname.endsWith('/') && !/\.html?$
           <div class="card-body" style="padding:0">
             <table class="tbl"><thead><tr><th>Code</th><th>Type</th><th>Value</th><th>Status</th><th>Uses</th><th>Actions</th></tr></thead>
             <tbody id="coupons-tbody"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERNATIONAL BRAND STOCK (live, saved in Supabase) -->
+      <div class="panel" id="panel-stock">
+        <div class="page-hd">
+          <div><h1>International Brand Stock</h1><p>Live on the Shop page as soon as you save. Brand → product → quantity.</p></div>
+          <button class="btn btn-ghost" onclick="renderStock()">↻ Reload</button>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-hd"><h3>Add product</h3></div>
+          <div class="card-body">
+            <div class="stock-add">
+              <div class="fg"><label class="fl">Brand</label><select class="fi" id="st-brand"></select></div>
+              <div class="fg"><label class="fl">Product name</label><input class="fi" id="st-product" maxlength="120" placeholder="e.g. Nemeth 800gm 80m Club"></div>
+              <div class="fg"><label class="fl">Quantity</label><input class="fi" id="st-qty" type="number" min="0" max="9999" value="1"></div>
+              <button class="btn btn-red" id="st-add-btn" onclick="addStock()">+ Add</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body" style="padding:0">
+            <table class="tbl"><thead><tr><th>Brand</th><th>Product</th><th>Qty</th><th>Updated</th><th>Actions</th></tr></thead>
+            <tbody id="stock-tbody"><tr><td colspan="5" style="color:var(--dim)">Loading…</td></tr></tbody></table>
           </div>
         </div>
       </div>
